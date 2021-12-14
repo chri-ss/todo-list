@@ -2,7 +2,8 @@ import todo from './todofactory.js';
 import project from './projectFactory.js';
 
 const newTodo = todo('stuff', 'do some stuff', '12/12/21', 'high');
-const newProject = project(newTodo);
+const newerTodo = todo('some other stuff', 'do something better', '12/13/21', 'higher');
+const newProject = project(newTodo, newerTodo);
 
 console.log(newTodo);
 console.log(newProject);

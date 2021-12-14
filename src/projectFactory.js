@@ -1,5 +1,5 @@
-const project = (todo) => {
-    return {todo}
+const project = (...todos) => {
+    return {...todos}
 }
 
 export default project;
