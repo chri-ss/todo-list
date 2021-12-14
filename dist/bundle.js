@@ -1,1 +1,1 @@
-console.log("hi");
+(()=>{"use strict";const o=(o,e,t,s)=>({title:o,description:e,dueDate:t,priority:s,getTitle:()=>console.log(o)}),e=o("stuff","do some stuff","12/12/21","high"),t=((...o)=>({...o}))(e,o("some other stuff","do something better","12/13/21","higher"));console.log(e),console.log(t)})();
