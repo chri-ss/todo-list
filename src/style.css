@@ -1,0 +1,43 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    box-sizing: content-box;
+    height: 100%;
+    width: 100%
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #96C5C3;
+    min-height: 20%;
+    min-width: 100%;
+    border-bottom: 2px solid rgb(178, 223, 33);
+}
+
+.main {
+    display: flex;
+    background-color: #d8d8d4;
+    min-height: 80%;
+    min-width: 100%;
+    font-size: 200px;
+    flex: 1 1 auto;
+}
+
+button {
+    height: 30%;
+    width: 30%;
+    border: 2px solid rgb(178, 223, 33);
+    border-radius: 10px;
+}
