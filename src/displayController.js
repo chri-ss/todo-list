@@ -1,8 +1,8 @@
 const content = document.getElementById('content')
 const nav = document.createElement('div');
 const main = document.createElement('div');
-const addProject = document.createElement('button');
-const addTodo = document.createElement('button');
+const projectButton = document.createElement('button');
+const todoButton = document.createElement('button');
 
 const addNav = () => {
     nav.classList.add('nav');
@@ -15,10 +15,22 @@ const addMain = () => {
 }
 
 const addNavButtons = () => {
-    addProject.textContent = 'Add a new project';
-    addTodo.textContent = 'Add a new Todo item';
-    nav.appendChild(addProject);
-    nav.appendChild(addTodo);
+    projectButton.textContent = 'Add a new project';
+    todoButton.textContent = 'Add a new Todo item';
+    projectButton.classList.add('project-button');
+    todoButton.classList.add('todo-button');
+    nav.appendChild(projectButton);
+    nav.appendChild(todoButton);
 }
 
-export { addNav, addMain, addNavButtons }
+const addProject = (projectName) => {
+    const project = document.createElement('div');
+    project.classList.add('project');
+    const projectHeader = document.createElement('div');
+    projectHeader.textContent = projectName;
+    main.appendChild(project);
+}
+
+
+
+export { projectButton, todoButton, addNav, addMain, addNavButtons, addProject }

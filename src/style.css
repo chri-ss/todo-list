@@ -13,7 +13,8 @@ body {
     flex-direction: column;
     box-sizing: content-box;
     height: 100%;
-    width: 100%
+    width: 100%;
+    flex: 1;
 }
 
 .nav {
@@ -28,11 +29,11 @@ body {
 
 .main {
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     background-color: #d8d8d4;
-    min-height: 80%;
     min-width: 100%;
     font-size: 200px;
-    flex: 1 1 auto;
 }
 
 button {
@@ -40,4 +41,11 @@ button {
     width: 30%;
     border: 2px solid rgb(178, 223, 33);
     border-radius: 10px;
+}
+
+.project {
+    min-height: 10vh;
+    min-width: 50%;
+    background-color: rgb(178, 223, 33);
+    margin: 1rem;
 }
