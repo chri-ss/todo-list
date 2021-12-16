@@ -1,7 +1,7 @@
 import todo from './todofactory.js';
 import project from './projectFactory.js';
 import {addNav, addMain, addNavButtons, addModal} from './displayController.js';
-import { addProjectEventListener } from './eventListeners.js';
+import { addProjectEventListener, addProjectSubmitEventListener } from './eventListeners.js';
 import './style.css';
 import './reset.css';
 
@@ -17,3 +17,4 @@ addNavButtons();
 addModal();
 addMain();
 addProjectEventListener();
+addProjectSubmitEventListener();

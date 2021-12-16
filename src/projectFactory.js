@@ -1,5 +1,5 @@
-const project = (...todos) => {
-    return {...todos}
+const project = (projectName, ...todos) => {
+    return { projectName, todos }
 }
 
-export default project;
+export { project };

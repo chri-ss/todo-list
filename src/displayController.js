@@ -4,6 +4,9 @@ const modal = document.createElement('div');
 const main = document.createElement('div');
 const projectButton = document.createElement('button');
 const todoButton = document.createElement('button');
+const projectForm = document.createElement('form');
+const projectName = document.createElement('input');
+const addProjectButton = document.createElement('button');
 
 const addNav = () => {
     nav.classList.add('nav');
@@ -31,11 +34,8 @@ const addNavButtons = () => {
 }
 
 const addProjectForm = () => {
-    const projectForm = document.createElement('form');
     projectForm.classList.add('project-form');
-    const projectName = document.createElement('input');
     projectName.classList.add('project-name');
-    const addProjectButton = document.createElement('button');
     addProjectButton.classList.add('add-project-button');
     addProjectButton.textContent = 'Add Project';
     projectForm.appendChild(projectName);
@@ -44,5 +44,20 @@ const addProjectForm = () => {
     modal.classList.remove('hidden');
 }
 
+const removeProjectForm = () => {
+    projectForm.value = '';
+    modal.classList.add('hidden');
+}
 
-export { projectButton, todoButton, addNav, addMain, addNavButtons, addModal, addProjectForm }
+const addProject = (project) => {
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project-div');
+    const projectTitle = document.createElement('div');
+    projectTitle.classList.add('project-title');
+    projectTitle.textContent = project.projectName;
+    projectDiv.appendChild(projectTitle);
+    main.appendChild(projectDiv);
+}
+
+export { projectButton, todoButton, addNav, addMain, addNavButtons, addModal, 
+    addProjectForm, removeProjectForm, addProjectButton, projectName, addProject }
