@@ -1,6 +1,6 @@
 import todo from './todofactory.js';
 import project from './projectFactory.js';
-import {addNav, addMain, addNavButtons} from './displayController.js';
+import {addNav, addMain, addNavButtons, addModal} from './displayController.js';
 import { addProjectEventListener } from './eventListeners.js';
 import './style.css';
 import './reset.css';
@@ -13,6 +13,7 @@ console.log(newTodo);
 console.log(newProject);*/
 
 addNav();
-addMain();
 addNavButtons();
+addModal();
+addMain();
 addProjectEventListener();

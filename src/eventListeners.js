@@ -1,8 +1,8 @@
-import { projectButton, addProject } from "./displayController";
+import { projectButton, addProjectForm } from "./displayController";
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
-        addProject();
+        addProjectForm();
     });
 }
 
