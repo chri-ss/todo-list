@@ -1,12 +1,23 @@
+import { project } from "./project";
+import todo from "./todo";
+
 const content = document.getElementById('content')
 const nav = document.createElement('div');
 const modal = document.createElement('div');
 const main = document.createElement('div');
 const projectButton = document.createElement('button');
 const todoButton = document.createElement('button');
-const projectForm = document.createElement('form');
 const projectName = document.createElement('input');
+const projectForm = document.createElement('form');
+const todoForm = document.createElement('form');
 const addProjectButton = document.createElement('button');
+
+const projectDropdown = document.createElement('select');
+const title = document.createElement('input');
+const description = document.createElement('input');
+const dueDate = document.createElement('input');
+const priority = document.createElement('input');
+const addTodoButton = document.createElement('button');
 
 class Add {
     static addNav() {
@@ -35,6 +46,10 @@ class Add {
     }
 
     static addProjectForm() {
+        if(modal.hasChildNodes())
+        {
+            Remove.removeTodoForm();
+        }
         projectForm.classList.add('project-form');
         projectName.classList.add('project-name');
         addProjectButton.classList.add('add-project-button');
@@ -54,14 +69,56 @@ class Add {
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
     }
-}
 
-class Remove {
-    static removeProjectForm() {
-        projectForm.value = '';
-        modal.classList.add('hidden');
+    static addTodoForm = () => {
+        if(modal.hasChildNodes())
+        {
+            Remove.removeProjectForm();
+        }
+        todoForm.classList.add('todo-form');
+        title.classList.add('title');
+        description.classList.add('discription');
+        dueDate.classList.add('due-date');
+        priority.classList.add('priority');
+        todoForm.appendChild(projectDropdown);
+        todoForm.appendChild(title);
+        todoForm.appendChild(description);
+        todoForm.appendChild(dueDate);
+        todoForm.appendChild(priority);
+        todoForm.appendChild(addTodoButton);
+        modal.appendChild(todoForm);
+    }
+
+    static addTodo(todo, project) {
+        const todoDiv = document.createElement('div');
+        todoDiv.classList.add('todo-div');
+        const todoTitle =  document.createElement('div');
+        todoTitle = todo.title;
+        const todoDescription =  document.createElement('div');
+        todoDescription = todo.description;
+        const todoDueDate =  document.createElement('div');
+        todoDueDate = todo.dueDate;
+        const todoPriority =  document.createElement('div');
+        todoPriority = todo.priority;
+        todoDiv.appendChild(todoTitle);
+        todoDiv.appendChild(todoDescription);
+        todoDiv.appendChild(todoDueDate);
+        todoDiv.appendChild(todoPriority);
+        project.appendChild(todoDiv);
     }
 }
 
 
-export { Add, Remove, projectButton, addProjectButton, projectName }
+class Remove {
+    static removeProjectForm() {
+        modal.removeChild(projectForm);
+    }
+
+    static removeTodoForm() {
+        modal.removeChild(todoForm);
+    }
+}
+
+
+export { Add, Remove, projectButton, addProjectButton, projectName,
+ projectDropdown, todoButton, title, description, dueDate, priority }
