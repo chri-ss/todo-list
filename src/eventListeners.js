@@ -1,5 +1,5 @@
 import { Add, Remove ,projectButton, addProjectButton, projectName } from "./displayController";
-import { project } from './projectFactory.js';
+import { project, projects } from './project.js';
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
@@ -11,6 +11,7 @@ const addProjectSubmitEventListener = () => {
     addProjectButton.addEventListener('click', (e) => {
         e.preventDefault();
         let newProject = project(projectName.value);
+        projects.push(newProject);
         Add.addProject(newProject);
         Remove.removeProjectForm();
     })
