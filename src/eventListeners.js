@@ -10,6 +10,10 @@ const addProjectEventListener = () => {
 const addProjectSubmitEventListener = () => {
     addProjectButton.addEventListener('click', (e) => {
         e.preventDefault();
+        if (projectName.value === '')
+        {
+            return;
+        }
         let newProject = project(projectName.value);
         projects.push(newProject);
         Add.addProject(newProject);
