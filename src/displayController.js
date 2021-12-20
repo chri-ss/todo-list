@@ -61,6 +61,7 @@ class Add {
         projectDiv.classList.add('project-div');
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
+        projectTitle.classList.add('project.projectName')
         projectTitle.textContent = project.projectName;
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
@@ -104,13 +105,13 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         const todoTitle =  document.createElement('div');
-        todoTitle = todo.title;
+        todoTitle.textContent = todo.title;
         const todoDescription =  document.createElement('div');
-        todoDescription = todo.description;
+        todoDescription.textContent = todo.description;
         const todoDueDate =  document.createElement('div');
-        todoDueDate = todo.dueDate;
+        todoDueDate.textContent = todo.dueDate;
         const todoPriority =  document.createElement('div');
-        todoPriority = todo.priority;
+        todoPriority.textContent = todo.priority;
         todoDiv.appendChild(todoTitle);
         todoDiv.appendChild(todoDescription);
         todoDiv.appendChild(todoDueDate);

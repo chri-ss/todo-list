@@ -32,15 +32,20 @@ const addTodoEventListener = () => {
     })
 }
 
-/*const addTodoSubmitEventListener = () => {
+const addTodoSubmitEventListener = () => {
     addTodoButton.addEventListener('click', (e) => {
         e.preventDefault()
-        if(title.value === '' || description.value === '' || dueDate.value === '' || priority.value === '' ||)
+        if(title.value === '' || description.value === '' || dueDate.value === '' || priority.value === '')
         {
             return;
         }
-        let newTodo = todo(title.value, description.value, dueDate.value, priority.value);
+        const newTodo = todo(title.value, description.value, dueDate.value, priority.value);
+        const newProject = projects[projectDropdown.selectedIndex];
+        newProject.addTodo(newTodo);
+        Add.addTodo(newProject, newTodo);
+        console.log(projects);
+        
     })
-}*/
+}
 
-export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener }
+export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener }
