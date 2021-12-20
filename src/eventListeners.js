@@ -19,6 +19,7 @@ const addProjectSubmitEventListener = () => {
         }
         let newProject = project(projectName.value);
         projects.push(newProject);
+        console.log(projects);
         Add.addProject(newProject);
         Remove.removeProjectForm();
     })
@@ -31,11 +32,15 @@ const addTodoEventListener = () => {
     })
 }
 
-const todoSubmitEventListener = () => {
+/*const addTodoSubmitEventListener = () => {
     addTodoButton.addEventListener('click', (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
+        if(title.value === '' || description.value === '' || dueDate.value === '' || priority.value === '' ||)
+        {
+            return;
+        }
+        let newTodo = todo(title.value, description.value, dueDate.value, priority.value);
     })
-}
+}*/
 
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener }

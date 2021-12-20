@@ -67,6 +67,11 @@ class Add {
     }
 
     static addProjectsToDropdown() {
+        while(projectDropdown.firstChild)
+        {
+            projectDropdown.removeChild(projectDropdown.firstChild);
+        }
+
         for(let i = 0; i < projects.length; ++i)
         {
             const newOption = document.createElement('option');
@@ -77,6 +82,7 @@ class Add {
 
     static addTodoForm = () => {
         todoForm.classList.add('todo-form');
+        projectDropdown.classList.add('project-dropdown');
         title.classList.add('title');
         description.classList.add('discription');
         dueDate.classList.add('due-date');
