@@ -1,4 +1,4 @@
-import { project } from "./project";
+import { project, projects } from "./project";
 import todo from "./todo";
 
 const content = document.getElementById('content')
@@ -66,6 +66,15 @@ class Add {
         main.appendChild(projectDiv);
     }
 
+    static addProjectsToDropdown() {
+        for(let i = 0; i < projects.length; ++i)
+        {
+            const newOption = document.createElement('option');
+            newOption.textContent = projects[i].projectName;
+            projectDropdown.appendChild(newOption);
+        }
+    }
+
     static addTodoForm = () => {
         todoForm.classList.add('todo-form');
         title.classList.add('title');
@@ -75,6 +84,7 @@ class Add {
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = 'Add Todo';
         todoForm.appendChild(projectDropdown);
+        Add.addProjectsToDropdown();
         todoForm.appendChild(title);
         todoForm.appendChild(description);
         todoForm.appendChild(dueDate);
@@ -122,4 +132,4 @@ class Remove {
 
 
 export { Add, Remove, projectButton, addProjectButton, projectName,
- projectDropdown, todoButton, title, description, dueDate, priority }
+ projectDropdown, todoButton, title, description, dueDate, priority, addTodoButton }

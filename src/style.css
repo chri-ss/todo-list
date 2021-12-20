@@ -54,7 +54,7 @@ button {
     display: none;
 }
 
-.add-project-button {
+.add-project-button, .add-todo-button {
     height: 100%;
     width: 50%;
     padding: 0.5rem;

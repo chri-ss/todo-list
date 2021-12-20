@@ -1,5 +1,5 @@
 import { Add, Remove ,projectButton, addProjectButton, projectName, todoButton, 
-projectDropdown, title, description, dueDate, priority } from "./displayController";
+projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
 
@@ -28,6 +28,13 @@ const addTodoEventListener = () => {
     todoButton.addEventListener('click', (e) => {
         Remove.removeProjectForm();
         Add.addTodoForm();
+    })
+}
+
+const todoSubmitEventListener = () => {
+    addTodoButton.addEventListener('click', (e) => {
+        e.preventDefault();
+
     })
 }
 
