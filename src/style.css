@@ -43,7 +43,7 @@ button {
     border-radius: 10px;
 }
 
-.modal, .project-form {
+.modal, .project-form, .todo-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
