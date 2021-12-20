@@ -84,7 +84,7 @@ class Add {
         todoForm.classList.add('todo-form');
         projectDropdown.classList.add('project-dropdown');
         title.classList.add('title');
-        description.classList.add('discription');
+        description.classList.add('description');
         dueDate.classList.add('due-date');
         priority.classList.add('priority');
         addTodoButton.classList.add('add-todo-button');
