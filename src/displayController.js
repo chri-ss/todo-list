@@ -46,7 +46,6 @@ class Add {
     }
 
     static addProjectForm() {
-        Remove.removeTodoForm();
         projectForm.classList.add('project-form');
         projectName.classList.add('project-name');
         addProjectButton.classList.add('add-project-button');
@@ -68,7 +67,6 @@ class Add {
     }
 
     static addTodoForm = () => {
-        Remove.removeProjectForm();
         todoForm.classList.add('todo-form');
         title.classList.add('title');
         description.classList.add('discription');
