@@ -5,6 +5,7 @@ import todo from "./todo";
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
+        Remove.removeTodoForm();
         Add.addProjectForm();
     });
 }
@@ -25,6 +26,7 @@ const addProjectSubmitEventListener = () => {
 
 const addTodoEventListener = () => {
     todoButton.addEventListener('click', (e) => {
+        Remove.removeProjectForm();
         Add.addTodoForm();
     })
 }

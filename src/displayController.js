@@ -14,7 +14,7 @@ const addProjectButton = document.createElement('button');
 
 const projectDropdown = document.createElement('select');
 const title = document.createElement('input');
-const description = document.createElement('input');
+const description = document.createElement('textarea');
 const dueDate = document.createElement('input');
 const priority = document.createElement('input');
 const addTodoButton = document.createElement('button');
@@ -46,10 +46,7 @@ class Add {
     }
 
     static addProjectForm() {
-        if(modal.hasChildNodes())
-        {
-            Remove.removeTodoForm();
-        }
+        Remove.removeTodoForm();
         projectForm.classList.add('project-form');
         projectName.classList.add('project-name');
         addProjectButton.classList.add('add-project-button');
@@ -71,15 +68,14 @@ class Add {
     }
 
     static addTodoForm = () => {
-        if(modal.hasChildNodes())
-        {
-            Remove.removeProjectForm();
-        }
+        Remove.removeProjectForm();
         todoForm.classList.add('todo-form');
         title.classList.add('title');
         description.classList.add('discription');
         dueDate.classList.add('due-date');
         priority.classList.add('priority');
+        addTodoButton.classList.add('add-todo-button');
+        addTodoButton.textContent = 'Add Todo';
         todoForm.appendChild(projectDropdown);
         todoForm.appendChild(title);
         todoForm.appendChild(description);
@@ -87,6 +83,7 @@ class Add {
         todoForm.appendChild(priority);
         todoForm.appendChild(addTodoButton);
         modal.appendChild(todoForm);
+        modal.classList.remove('hidden');
     }
 
     static addTodo(todo, project) {
@@ -111,11 +108,17 @@ class Add {
 
 class Remove {
     static removeProjectForm() {
-        modal.removeChild(projectForm);
+        if (modal.contains(projectForm))
+        {
+            modal.removeChild(projectForm);
+        }
     }
 
     static removeTodoForm() {
-        modal.removeChild(todoForm);
+        if (modal.contains(todoForm))
+        {
+            modal.removeChild(todoForm);
+        }
     }
 }
 
