@@ -1,5 +1,6 @@
 import { project, projects } from "./project";
 import todo from "./todo";
+import { kebabCase } from "./utils";
 
 const content = document.getElementById('content')
 const nav = document.createElement('div');
@@ -61,7 +62,7 @@ class Add {
         projectDiv.classList.add('project-div');
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
-        projectTitle.classList.add(`${project.projectName}`)
+        projectTitle.classList.add(`${kebabCase(project.projectName)}`)
         projectTitle.textContent = project.projectName;
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
@@ -127,6 +128,7 @@ class Remove {
         {
             modal.removeChild(projectForm);
         }
+        projectName.value = '';
     }
 
     static removeTodoForm() {
@@ -134,6 +136,10 @@ class Remove {
         {
             modal.removeChild(todoForm);
         }
+        const inputs = todoForm.childNodes;
+        inputs.forEach(input => {
+            input.value = '';
+        })
     }
 }
 

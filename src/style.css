@@ -81,3 +81,10 @@ button {
 .description {
     height: 10vh;
 }
+
+.todo-div {
+    margin: 1rem;
+    background-color: rgb(192, 212, 124);
+    border: 1px solid black;
+    border-radius: 5px;
+}
