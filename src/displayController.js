@@ -20,6 +20,12 @@ const dueDate = document.createElement('input');
 const priority = document.createElement('input');
 const addTodoButton = document.createElement('button');
 
+const projectLabel = document.createElement('label');
+const titleLabel = document.createElement('label');
+const descriptionLabel = document.createElement('label');
+const dueDateLabel = document.createElement('label');
+const priorityLabel = document.createElement('label');
+
 class Add {
     static addNav() {
         nav.classList.add('nav');
@@ -91,11 +97,23 @@ class Add {
         priority.classList.add('priority');
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = 'Add Todo';
+
+        projectLabel.textContent = 'Project';
+        titleLabel.textContent = 'Title';
+        descriptionLabel.textContent = 'Description';
+        dueDateLabel.textContent = 'Due Date';
+        priorityLabel.textContent = 'Priority';
+
+        todoForm.appendChild(projectLabel);
         todoForm.appendChild(projectDropdown);
         Add.addProjectsToDropdown();
+        todoForm.appendChild(titleLabel);
         todoForm.appendChild(title);
+        todoForm.appendChild(descriptionLabel);
         todoForm.appendChild(description);
+        todoForm.appendChild(dueDateLabel);
         todoForm.appendChild(dueDate);
+        todoForm.appendChild(priorityLabel);
         todoForm.appendChild(priority);
         todoForm.appendChild(addTodoButton);
         modal.appendChild(todoForm);
@@ -106,8 +124,8 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         const todoTitle =  document.createElement('div');
-        todoTitle.textContent = todo.title;
-        const todoDescription =  document.createElement('div');
+        todoTitle.textContent = `title: ${todo.title}`;
+        const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
         const todoDueDate =  document.createElement('div');
         todoDueDate.textContent = todo.dueDate;
