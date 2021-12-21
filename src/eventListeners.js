@@ -48,8 +48,9 @@ const addTodoSubmitEventListener = () => {
         }
         const newTodo = todo(title.value, description.value, dueDate.value, priority.value);
         const newProject = projects[projectDropdown.selectedIndex];
+        const projectDiv = document.querySelector(`.${newProject.projectName}`)
         newProject.addTodo(newTodo);
-        Add.addTodo(newProject, newTodo);
+        Add.addTodo(newTodo, projectDiv);
         console.log(projects);
         
     })

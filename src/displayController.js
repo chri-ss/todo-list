@@ -61,7 +61,7 @@ class Add {
         projectDiv.classList.add('project-div');
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
-        projectTitle.classList.add('project.projectName')
+        projectTitle.classList.add(`${project.projectName}`)
         projectTitle.textContent = project.projectName;
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
@@ -101,7 +101,7 @@ class Add {
         modal.classList.remove('hidden');
     }
 
-    static addTodo(todo, project) {
+    static addTodo(todo, projectDiv) {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         const todoTitle =  document.createElement('div');
@@ -116,7 +116,7 @@ class Add {
         todoDiv.appendChild(todoDescription);
         todoDiv.appendChild(todoDueDate);
         todoDiv.appendChild(todoPriority);
-        project.appendChild(todoDiv);
+        projectDiv.appendChild(todoDiv);
     }
 }
 
