@@ -18,6 +18,13 @@ const addProjectSubmitEventListener = () => {
             return;
         }
         let newProject = project(projectName.value);
+        for(let i = 0; i < projects.length; ++i)
+        {
+            if(projects[i].projectName === newProject.projectName)
+            {
+                return;
+            }
+        }
         projects.push(newProject);
         console.log(projects);
         Add.addProject(newProject);
