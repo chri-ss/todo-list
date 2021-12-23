@@ -124,17 +124,27 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         const todoTitle =  document.createElement('div');
-        todoTitle.textContent = `title: ${todo.title}`;
+        todoTitle.classList.add('todo-title');
+        const todoTitleText = document.createElement('div');
+        todoTitleText.textContent = todo.title;
+        todoTitleText.classList.add('todo-title-text');
         const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
+        todoDescription.classList.add('todo-sub');
+        todoDescription.classList.add('hidden');
         const todoDueDate =  document.createElement('div');
         todoDueDate.textContent = todo.dueDate;
+        todoDueDate.classList.add('todo-sub');
+        todoDueDate.classList.add('hidden');
         const todoPriority =  document.createElement('div');
         todoPriority.textContent = todo.priority;
+        todoPriority.classList.add('todo-sub');
+        todoPriority.classList.add('hidden');
         todoDiv.appendChild(todoTitle);
-        todoDiv.appendChild(todoDescription);
-        todoDiv.appendChild(todoDueDate);
-        todoDiv.appendChild(todoPriority);
+        todoTitle.appendChild(todoTitleText);
+        todoTitle.appendChild(todoDescription);
+        todoTitle.appendChild(todoDueDate);
+        todoTitle.appendChild(todoPriority);
         projectDiv.appendChild(todoDiv);
     }
 }

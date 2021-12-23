@@ -1,4 +1,4 @@
-import { Add, Remove ,projectButton, addProjectButton, projectName, todoButton, 
+import { Add, Remove, Toggle, projectButton, addProjectButton, projectName, todoButton, 
 projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
@@ -55,4 +55,23 @@ const addTodoSubmitEventListener = () => {
     })
 }
 
-export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener }
+const addTodoToggleEventListener = () => {
+    const main = document.querySelector('.main');
+    console.log(main);
+    main.addEventListener('click', (event) => {
+        if(event.target.className === 'todo-title')
+        {
+            const children = Array.from(event.target.childNodes);
+            console.log(children)
+            children.forEach(child => {
+                if (child.classList.contains('todo-sub'))
+                {
+                    child.classList.toggle('hidden');
+                }
+            })
+        }
+    })
+}
+
+
+export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, addTodoToggleEventListener}
