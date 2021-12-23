@@ -68,8 +68,11 @@ class Add {
         projectDiv.classList.add('project-div');
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
-        projectTitle.classList.add(`${kebabCase(project.projectName)}`)
-        projectTitle.textContent = project.projectName;
+        projectTitle.classList.add(`${kebabCase(project.projectName)}`);
+        const projectTitleText = document.createElement('div');
+        projectTitleText.textContent = project.projectName;
+        projectTitleText.classList.add('project-title-text');
+        projectTitle.appendChild(projectTitleText);
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
     }

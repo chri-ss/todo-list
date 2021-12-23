@@ -57,12 +57,10 @@ const addTodoSubmitEventListener = () => {
 
 const addTodoToggleEventListener = () => {
     const main = document.querySelector('.main');
-    console.log(main);
     main.addEventListener('click', (event) => {
         if(event.target.className === 'todo-title')
         {
             const children = Array.from(event.target.childNodes);
-            console.log(children)
             children.forEach(child => {
                 if (child.classList.contains('todo-sub'))
                 {
@@ -73,5 +71,22 @@ const addTodoToggleEventListener = () => {
     })
 }
 
+const addProjectToggleEventListener = () => {
+    const main = document.querySelector('.main');
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'project-title');
+        {
+            const children = Array.from(event.target.childNodes);
+            children.forEach(child => {
+                if (child.classList.contains('todo-div'))
+                {
+                    child.classList.toggle('hidden');
+                }
+            })
+        }
+    })
+}
 
-export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, addTodoToggleEventListener}
+
+export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
+    addTodoToggleEventListener, addProjectToggleEventListener}
