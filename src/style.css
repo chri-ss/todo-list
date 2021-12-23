@@ -69,6 +69,7 @@ button {
     flex-direction: column;
     width: 80%;
     background-color: rgb(178, 223, 33);
+    border: 1px solid black;
     border-radius: 5px;
     margin: 1rem;
 }
@@ -80,4 +81,25 @@ button {
 
 .description {
     height: 10vh;
+}
+
+.todo-div {
+    margin: 1rem;
+    background-color: rgb(192, 212, 124);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.todo-sub {
+    margin: 1rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.todo-title-text, .project-title-text {
+    width: 0%;
 }
