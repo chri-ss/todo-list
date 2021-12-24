@@ -2,7 +2,7 @@ import { Add, Remove, Toggle, projectButton, addProjectButton, projectName, todo
 projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
-import { kebabCase } from "./utils";
+import { kebabCase, updateLocalStorage } from "./utils";
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
@@ -27,6 +27,7 @@ const addProjectSubmitEventListener = () => {
             }
         }
         projects.push(newProject);
+        updateLocalStorage();
         Add.addProject(newProject);
         Remove.removeProjectForm();
     })
@@ -52,6 +53,7 @@ const addTodoSubmitEventListener = () => {
         newProject.addTodo(newTodo);
         Add.addTodo(newTodo, projectDiv);
         Remove.removeTodoForm();
+        updateLocalStorage();
     })
 }
 
