@@ -3,6 +3,8 @@ projectDropdown, title, description, dueDate, priority, addTodoButton } from "./
 import { project, projects } from './project.js';
 import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
+import rightArrow from './images/baseline_arrow_right_black_24dp.png'
+import downArrow from './images/baseline_arrow_drop_down_black_24dp.png'
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
@@ -51,7 +53,7 @@ const addTodoSubmitEventListener = () => {
         const newProject = projects[projectDropdown.selectedIndex];
         const projectDiv = document.querySelector(`.${kebabCase(newProject.projectName)}`)
         newProject.addTodo(newTodo);
-        Add.addTodo(newTodo, projectDiv);
+        Add.addTodo(newTodo, projectDiv, projectDropdown.selectedIndex);
         Remove.removeTodoForm();
         updateLocalStorage();
     })
@@ -76,9 +78,17 @@ const addTodoToggleEventListener = () => {
 const addProjectToggleEventListener = () => {
     const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
-        if(event.target.classList[0] === 'project-title');
+        if(event.target.classList[0] === 'project-dropdown-arrow');
         {
-            const children = Array.from(event.target.childNodes);
+            if(event.target.src === rightArrow)
+            {
+                event.target.src = downArrow;
+            }
+            else
+            {
+                event.target.src = rightArrow
+            }
+            const children = Array.from(document.querySelectorAll(`.todo${event.target.classList[1]}`));
             children.forEach(child => {
                 if (child.classList.contains('todo-div'))
                 {

@@ -101,5 +101,23 @@ button {
 }
 
 .todo-title-text, .project-title-text {
-    width: 0%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-div {
+    display: flex;
+}
+
+.project-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-title-right, .project-title-left {
+    display: flex;
+    flex: 1;
 }

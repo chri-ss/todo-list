@@ -1,6 +1,10 @@
 import { project, projects } from "./project";
-import todo from "./todo";
-import { kebabCase } from "./utils";
+import { kebabCase, updateLocalStorage, revealHiddenTodos } from "./utils";
+import updateIcon from './images/baseline_update_black_24dp.png'
+import deleteIcon from './images/baseline_delete_black_24dp.png'
+import rightArrow from './images/baseline_arrow_right_black_24dp.png'
+import downArrow from './images/baseline_arrow_drop_down_black_24dp.png'
+
 
 const content = document.getElementById('content')
 const nav = document.createElement('div');
@@ -66,13 +70,37 @@ class Add {
     static addProject(project) {
         const projectDiv = document.createElement('div');
         projectDiv.classList.add('project-div');
+        projectDiv.classList.add(`${kebabCase(project.projectName)}`);
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
-        projectTitle.classList.add(`${kebabCase(project.projectName)}`);
+
+        const projectTitleLeftDiv = document.createElement('div')
+        projectTitleLeftDiv.classList.add('project-title');
+        const projectDropdownArrow = new Image();
+        projectDropdownArrow.src = rightArrow;
+        projectDropdownArrow.classList.add('project-dropdown-arrow');
+        projectDropdownArrow.classList.add(`${projects.indexOf(project)}`);
         const projectTitleText = document.createElement('div');
         projectTitleText.textContent = project.projectName;
         projectTitleText.classList.add('project-title-text');
-        projectTitle.appendChild(projectTitleText);
+
+        const projectTitleRightDiv = document.createElement('div');
+        projectTitleRightDiv.classList.add('project-title');
+        const projectUpdateIcon = new Image();
+        projectUpdateIcon.src = updateIcon;
+        const projectDeleteIcon = new Image();
+        projectDeleteIcon.src = deleteIcon;
+
+        
+        projectTitleLeftDiv.appendChild(projectDropdownArrow);
+        projectTitleLeftDiv.appendChild(projectTitleText);
+        
+        projectTitleRightDiv.appendChild(projectUpdateIcon);
+        projectTitleRightDiv.appendChild(projectDeleteIcon);
+        
+        projectTitle.appendChild(projectTitleLeftDiv);
+        projectTitle.appendChild(projectTitleRightDiv);
+
         projectDiv.appendChild(projectTitle);
         main.appendChild(projectDiv);
     }
@@ -123,9 +151,18 @@ class Add {
         modal.classList.remove('hidden');
     }
 
-    static addTodo(todo, projectDiv) {
+    static addTodo(todo, projectDiv, projectIndex) {
+        const projectDropdownArrow = document.querySelector('.project-dropdown-arrow');
+        if(projectDropdownArrow.src === rightArrow)
+        {
+            projectDropdownArrow.src = downArrow;
+        }
+
+        revealHiddenTodos(Array.from(projectDiv.childNodes));
+
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
+        todoDiv.classList.add(`todo${projectIndex}`)
         const todoTitle =  document.createElement('div');
         todoTitle.classList.add('todo-title');
         const todoTitleText = document.createElement('div');
@@ -186,7 +223,7 @@ const displayProjects = () => {
             Add.addProject(projects[i]);
             projects[i].todos.forEach(todo => {
                 const projectDiv = document.querySelector(`.${kebabCase(projects[i].projectName)}`)
-                Add.addTodo(todo, projectDiv);
+                Add.addTodo(todo, projectDiv, i);
             })
         }
     }

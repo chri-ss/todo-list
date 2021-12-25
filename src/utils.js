@@ -14,4 +14,14 @@ const updateLocalStorage = () => {
     }
 }
 
-export { kebabCase, updateLocalStorage }
+const revealHiddenTodos = (children) => {
+    for(let i = 0; i < children.length; ++i)
+    {
+        if(children[i].classList.contains('hidden'))
+        {
+            children[i].classList.remove('hidden');
+        }
+    }
+}
+
+export { kebabCase, updateLocalStorage, revealHiddenTodos }
