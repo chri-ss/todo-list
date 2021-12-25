@@ -7,6 +7,13 @@ const project = (projectName, ...todos) => {
     return { projectName, todos, addTodo }
 }
 
-const projects = [project('default')];
+const addbackAddTodo = (todos) => 
+    projects.forEach(project => {
+        project.addTodo = (todo) => {
+            project.todos.push(todo);
+        }
+    })
 
-export { project, projects };
+const projects = [];
+
+export { project, projects, addbackAddTodo };

@@ -1,6 +1,6 @@
 import todo from './todo.js';
-import { project, projects } from './project.js';
-import { Add, Remove } from './displayController.js';
+import { addbackAddTodo, project, projects } from './project.js';
+import { Add, Remove, displayProjects } from './displayController.js';
 import { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, addTodoToggleEventListener,
 addProjectToggleEventListener } from './eventListeners.js';
 import './style.css';
@@ -16,5 +16,5 @@ addProjectSubmitEventListener();
 addTodoSubmitEventListener();
 addTodoToggleEventListener();
 addProjectToggleEventListener();
-
-Add.addProject(projects[0]);
+displayProjects();
+addbackAddTodo();

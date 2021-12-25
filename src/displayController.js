@@ -174,6 +174,29 @@ class Remove {
     }
 }
 
+const displayProjects = () => {
+    if(localStorage[0])
+    {
+        for(let i = 0; i < localStorage.length; ++i)
+        {
+            projects.push(JSON.parse(localStorage.getItem(i)));
+        }
+        for(let i = 0; i < projects.length; ++i)
+        {
+            Add.addProject(projects[i]);
+            projects[i].todos.forEach(todo => {
+                const projectDiv = document.querySelector(`.${kebabCase(projects[i].projectName)}`)
+                Add.addTodo(todo, projectDiv);
+            })
+        }
+    }
+    else
+    {   
+        projects.push(project('default'))
+        Add.addProject(projects[0]);
+    }
+}
+
 
 export { Add, Remove, projectButton, addProjectButton, projectName,
- projectDropdown, todoButton, title, description, dueDate, priority, addTodoButton }
+ projectDropdown, todoButton, title, description, dueDate, priority, addTodoButton, displayProjects }
