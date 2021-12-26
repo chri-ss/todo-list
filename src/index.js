@@ -18,3 +18,4 @@ addTodoToggleEventListener();
 addProjectToggleEventListener();
 displayProjects();
 addbackAddTodo();
+console.log(projects);

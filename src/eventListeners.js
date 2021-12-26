@@ -3,8 +3,8 @@ projectDropdown, title, description, dueDate, priority, addTodoButton } from "./
 import { project, projects } from './project.js';
 import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
-import rightArrow from './images/baseline_arrow_right_black_24dp.png'
-import downArrow from './images/baseline_arrow_drop_down_black_24dp.png'
+import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
+import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
@@ -84,10 +84,12 @@ const addProjectToggleEventListener = () => {
             {
                 event.target.src = downArrow;
             }
-            else
+            else if (event.target.src === downArrow)
             {
                 event.target.src = rightArrow
             }
+            const project = projects[event.target.classList[1]];
+            console.log(project);
             const children = Array.from(document.querySelectorAll(`.todo${event.target.classList[1]}`));
             children.forEach(child => {
                 if (child.classList.contains('todo-div'))

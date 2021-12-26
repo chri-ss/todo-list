@@ -1,9 +1,9 @@
 import { project, projects } from "./project";
 import { kebabCase, updateLocalStorage, revealHiddenTodos } from "./utils";
-import updateIcon from './images/baseline_update_black_24dp.png'
-import deleteIcon from './images/baseline_delete_black_24dp.png'
-import rightArrow from './images/baseline_arrow_right_black_24dp.png'
-import downArrow from './images/baseline_arrow_drop_down_black_24dp.png'
+import updateIcon from './images/2x/baseline_update_black_24dp.png'
+import deleteIcon from './images/2x/baseline_delete_black_24dp.png'
+import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
+import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 
 
 const content = document.getElementById('content')
@@ -225,6 +225,10 @@ const displayProjects = () => {
                 const projectDiv = document.querySelector(`.${kebabCase(projects[i].projectName)}`)
                 Add.addTodo(todo, projectDiv, i);
             })
+            const children = Array.from(document.querySelectorAll(`.todo${i}`))
+            children.forEach(child => child.classList.add('hidden'));
+            const projectDropdownArrows = document.querySelectorAll('.project-dropdown-arrow');
+            projectDropdownArrows.forEach(arrow => arrow.src = rightArrow);
         }
     }
     else
