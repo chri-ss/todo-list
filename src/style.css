@@ -111,13 +111,8 @@ button {
     display: flex;
 }
 
-.project-title {
+.project-title, .todo-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.project-title-right, .project-title-left {
-    display: flex;
-    flex: 1;
 }

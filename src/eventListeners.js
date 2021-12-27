@@ -5,6 +5,8 @@ import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
 import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
 import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
+import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
+import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 
 const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
@@ -62,11 +64,21 @@ const addTodoSubmitEventListener = () => {
 const addTodoToggleEventListener = () => {
     const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
-        if(event.target.className === 'todo-title')
+        if(event.target.classList[0] === 'todo-dropdown-arrow')
         {
-            const children = Array.from(event.target.childNodes);
+            if(event.target.src === rightArrowSmall)
+            {
+                event.target.src = downArrowSmall;
+            }
+            else if (event.target.src === downArrowSmall)
+            {
+                event.target.src = rightArrowSmall;
+            }
+            const todoDiv = ((event.target.parentElement).parentElement).parentElement;
+            console.log(todoDiv);
+            const children = Array.from(todoDiv.childNodes);
             children.forEach(child => {
-                if (child.classList.contains('todo-sub'))
+                if(child.classList[0] === `sub${event.target.classList[1]}`)
                 {
                     child.classList.toggle('hidden');
                 }

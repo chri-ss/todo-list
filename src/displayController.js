@@ -1,9 +1,15 @@
 import { project, projects } from "./project";
 import { kebabCase, updateLocalStorage, revealHiddenTodos } from "./utils";
+
 import updateIcon from './images/2x/baseline_update_black_24dp.png'
 import deleteIcon from './images/2x/baseline_delete_black_24dp.png'
 import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
 import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
+
+import updateIconSmall from './images/1x/baseline_update_black_24dp.png'
+import deleteIconSmall from './images/1x/baseline_delete_black_24dp.png'
+import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
+import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 
 
 const content = document.getElementById('content')
@@ -163,29 +169,58 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         todoDiv.classList.add(`todo${projectIndex}`)
+        
         const todoTitle =  document.createElement('div');
         todoTitle.classList.add('todo-title');
+
+        const todoTitleLeftDiv  = document.createElement('div');
+        todoTitleLeftDiv.classList.add('todo-title')
+        const todoDropdownArrow = new Image();
+        todoDropdownArrow.src = rightArrowSmall;
+        todoDropdownArrow.classList.add('todo-dropdown-arrow');
+        todoDropdownArrow.classList.add(`${todo.title}`);
         const todoTitleText = document.createElement('div');
         todoTitleText.textContent = todo.title;
         todoTitleText.classList.add('todo-title-text');
+
+        const todoTitleRightDiv = document.createElement('div');
+        todoTitleRightDiv.classList.add('todo-title');
+        const todoUpdateIcon = new Image();
+        todoUpdateIcon.src = updateIconSmall;
+        const todoDeleteIcon = new Image();
+        todoDeleteIcon.src = deleteIconSmall;
+
         const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
+        todoDescription.classList.add(`sub${todo.title}`);
         todoDescription.classList.add('todo-sub');
         todoDescription.classList.add('hidden');
         const todoDueDate =  document.createElement('div');
         todoDueDate.textContent = todo.dueDate;
+        todoDueDate.classList.add(`sub${todo.title}`);
         todoDueDate.classList.add('todo-sub');
         todoDueDate.classList.add('hidden');
         const todoPriority =  document.createElement('div');
         todoPriority.textContent = todo.priority;
+        todoPriority.classList.add(`sub${todo.title}`);
         todoPriority.classList.add('todo-sub');
         todoPriority.classList.add('hidden');
+
+        todoTitleLeftDiv.appendChild(todoDropdownArrow);
+        todoTitleLeftDiv.appendChild(todoTitleText);
+
+        todoTitleRightDiv.appendChild(todoUpdateIcon);
+        todoTitleRightDiv.appendChild(todoDeleteIcon);
+
+        todoTitle.appendChild(todoTitleLeftDiv);
+        todoTitle.appendChild(todoTitleRightDiv);
+
         todoDiv.appendChild(todoTitle);
-        todoTitle.appendChild(todoTitleText);
-        todoTitle.appendChild(todoDescription);
-        todoTitle.appendChild(todoDueDate);
-        todoTitle.appendChild(todoPriority);
+        todoDiv.appendChild(todoDescription);
+        todoDiv.appendChild(todoDueDate);
+        todoDiv.appendChild(todoPriority);
         projectDiv.appendChild(todoDiv);
+
     }
 }
 
