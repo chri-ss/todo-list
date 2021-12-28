@@ -1,5 +1,5 @@
 import { Add, Remove, Toggle, projectButton, addProjectButton, projectName, todoButton, 
-projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
+projectDropdown, title, description, dueDate, priority, addTodoButton, displayProjects } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
@@ -113,6 +113,33 @@ const addProjectToggleEventListener = () => {
     })
 }
 
+const addDeleteProjectEventListener = () => {
+    const main = document.querySelector('.main');
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'project-delete')
+        {
+            if(projects.length === 1)
+            {
+                while(main.firstChild)
+                {
+                    main.removeChild(main.firstChild);
+                }
+                projects.shift();
+                console.log(projects);
+                updateLocalStorage();
+            }
+            else
+            {
+                const projectIndex = parseInt(event.target.classList[1]);
+                const divToRemove = document.querySelector(`.${kebabCase(projects[projectIndex].projectName)}`);
+                main.removeChild(divToRemove);
+                console.log(projects);
+                projects.splice(projectIndex, 1);
+                updateLocalStorage();
+            }
+        }
+    })
+}
 
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener}
+    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener}

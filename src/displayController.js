@@ -96,6 +96,8 @@ class Add {
         projectUpdateIcon.src = updateIcon;
         const projectDeleteIcon = new Image();
         projectDeleteIcon.src = deleteIcon;
+        projectDeleteIcon.classList.add('project-delete');
+        projectDeleteIcon.classList.add(`${projects.indexOf(project)}delete`)
 
         
         projectTitleLeftDiv.appendChild(projectDropdownArrow);
