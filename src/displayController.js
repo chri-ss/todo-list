@@ -96,6 +96,8 @@ class Add {
         projectUpdateIcon.src = updateIcon;
         const projectDeleteIcon = new Image();
         projectDeleteIcon.src = deleteIcon;
+        projectDeleteIcon.classList.add('project-delete');
+        projectDeleteIcon.classList.add(`${projects.indexOf(project)}delete`)
 
         
         projectTitleLeftDiv.appendChild(projectDropdownArrow);
@@ -169,6 +171,7 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         todoDiv.classList.add(`todo${projectIndex}`)
+        todoDiv.classList.add(`${todo.title}`);
         
         const todoTitle =  document.createElement('div');
         todoTitle.classList.add('todo-title');
@@ -189,6 +192,9 @@ class Add {
         todoUpdateIcon.src = updateIconSmall;
         const todoDeleteIcon = new Image();
         todoDeleteIcon.src = deleteIconSmall;
+        todoDeleteIcon.classList.add('todo-delete');
+        todoDeleteIcon.classList.add(`${projectIndex}delete`)
+        todoDeleteIcon.classList.add(`${todo.title}`);
 
         const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
@@ -274,5 +280,5 @@ const displayProjects = () => {
 }
 
 
-export { Add, Remove, projectButton, addProjectButton, projectName,
- projectDropdown, todoButton, title, description, dueDate, priority, addTodoButton, displayProjects }
+export { Add, Remove, projectButton, addProjectButton, projectName, projectDropdown, 
+    todoButton, title, description, dueDate, priority, addTodoButton, displayProjects }
