@@ -141,5 +141,29 @@ const addDeleteProjectEventListener = () => {
     })
 }
 
+const addTodoDeleteEventListener = () => {
+    const main = document.querySelector('.main');
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'todo-delete')
+        {
+            const projectIndex = parseInt(event.target.classList[1]);
+            const projectToRemoveFrom = projects[projectIndex];
+            const projectTodosToRemoveFrom = projectToRemoveFrom.todos;
+            const divToRemoveFrom = document.querySelector(`.${projectToRemoveFrom.projectName}`)
+
+            projectTodosToRemoveFrom.forEach(todo => {
+                if(todo.title === event.target.classList[2])
+                {
+                    const todoIndex = (projectTodosToRemoveFrom.indexOf(todo));
+                    projectTodosToRemoveFrom.splice(todoIndex, 1);
+                    const divToRemove = document.querySelector(`.${todo.title}`);
+                    divToRemoveFrom.removeChild(divToRemove);
+                    updateLocalStorage();
+                }
+            })
+        }
+    })
+}
+
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener}
+    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener}
