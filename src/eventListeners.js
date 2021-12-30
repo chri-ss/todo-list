@@ -133,8 +133,8 @@ const addDeleteProjectEventListener = () => {
                 const projectIndex = parseInt(event.target.classList[1]);
                 const divToRemove = document.querySelector(`.${kebabCase(projects[projectIndex].projectName)}`);
                 main.removeChild(divToRemove);
-                console.log(projects);
                 projects.splice(projectIndex, 1);
+                console.log(projects);
                 updateLocalStorage();
             }
         }

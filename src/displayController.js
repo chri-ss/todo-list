@@ -27,7 +27,10 @@ const projectDropdown = document.createElement('select');
 const title = document.createElement('input');
 const description = document.createElement('textarea');
 const dueDate = document.createElement('input');
-const priority = document.createElement('input');
+const priority = document.createElement('select');
+const low = document.createElement('option');
+const medium = document.createElement('option');
+const high = document.createElement('option');
 const addTodoButton = document.createElement('button');
 
 const projectLabel = document.createElement('label');
@@ -131,7 +134,11 @@ class Add {
         title.classList.add('title');
         description.classList.add('description');
         dueDate.classList.add('due-date');
+        dueDate.type = 'date';
         priority.classList.add('priority');
+        low.textContent = 'low'
+        medium.textContent = 'medium';
+        high.textContent = 'high';
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = 'Add Todo';
 
@@ -150,6 +157,9 @@ class Add {
         todoForm.appendChild(description);
         todoForm.appendChild(dueDateLabel);
         todoForm.appendChild(dueDate);
+        priority.appendChild(low);
+        priority.appendChild(medium);
+        priority.appendChild(high);
         todoForm.appendChild(priorityLabel);
         todoForm.appendChild(priority);
         todoForm.appendChild(addTodoButton);
@@ -234,6 +244,7 @@ class Remove {
             modal.removeChild(projectForm);
         }
         projectName.value = '';
+        modal.classList.add('hidden');
     }
 
     static removeTodoForm() {
@@ -244,6 +255,7 @@ class Remove {
         inputs.forEach(input => {
             input.value = '';
         })
+        modal.classList.add('hidden');
     }
 }
 
