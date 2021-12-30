@@ -1,8 +1,9 @@
-import { Add, Remove, Toggle, projectButton, addProjectButton, projectName, todoButton, 
-projectDropdown, title, description, dueDate, priority, addTodoButton, displayProjects } from "./displayController";
+import { Add, Remove, projectButton, addProjectButton, projectName, todoButton, 
+projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
+
 import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
 import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
@@ -134,7 +135,13 @@ const addDeleteProjectEventListener = () => {
                 const divToRemove = document.querySelector(`.${kebabCase(projects[projectIndex].projectName)}`);
                 main.removeChild(divToRemove);
                 projects.splice(projectIndex, 1);
-                console.log(projects);
+
+                //to make last div removable
+                const lastDiv = main.lastChild;
+                const lastDeleteButton = lastDiv.querySelector('.project-delete');
+                lastDeleteButton.classList.remove(lastDeleteButton.classList[1]);
+                lastDeleteButton.classList.add(`${projects.length - 1}delete`);
+        
                 updateLocalStorage();
             }
         }
