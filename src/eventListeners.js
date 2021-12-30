@@ -78,7 +78,7 @@ const addTodoToggleEventListener = () => {
             console.log(todoDiv);
             const children = Array.from(todoDiv.childNodes);
             children.forEach(child => {
-                if(child.classList[0] === `sub${event.target.classList[1]}`)
+                if(child.classList[0] === `sub${kebabCase(event.target.classList[1])}`)
                 {
                     child.classList.toggle('hidden');
                 }

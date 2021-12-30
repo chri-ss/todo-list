@@ -99,13 +99,13 @@ class Add {
         projectDeleteIcon.classList.add('project-delete');
         projectDeleteIcon.classList.add(`${projects.indexOf(project)}delete`)
 
-        
+
         projectTitleLeftDiv.appendChild(projectDropdownArrow);
         projectTitleLeftDiv.appendChild(projectTitleText);
-        
+
         projectTitleRightDiv.appendChild(projectUpdateIcon);
         projectTitleRightDiv.appendChild(projectDeleteIcon);
-        
+
         projectTitle.appendChild(projectTitleLeftDiv);
         projectTitle.appendChild(projectTitleRightDiv);
 
@@ -114,13 +114,11 @@ class Add {
     }
 
     static addProjectsToDropdown() {
-        while(projectDropdown.firstChild)
-        {
+        while (projectDropdown.firstChild) {
             projectDropdown.removeChild(projectDropdown.firstChild);
         }
 
-        for(let i = 0; i < projects.length; ++i)
-        {
+        for (let i = 0; i < projects.length; ++i) {
             const newOption = document.createElement('option');
             newOption.textContent = projects[i].projectName;
             projectDropdown.appendChild(newOption);
@@ -161,8 +159,7 @@ class Add {
 
     static addTodo(todo, projectDiv, projectIndex) {
         const projectDropdownArrow = document.querySelector('.project-dropdown-arrow');
-        if(projectDropdownArrow.src === rightArrow)
-        {
+        if (projectDropdownArrow.src === rightArrow) {
             projectDropdownArrow.src = downArrow;
         }
 
@@ -171,17 +168,17 @@ class Add {
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo-div');
         todoDiv.classList.add(`todo${projectIndex}`)
-        todoDiv.classList.add(`${todo.title}`);
-        
-        const todoTitle =  document.createElement('div');
+        todoDiv.classList.add(`${kebabCase(todo.title)}`);
+
+        const todoTitle = document.createElement('div');
         todoTitle.classList.add('todo-title');
 
-        const todoTitleLeftDiv  = document.createElement('div');
+        const todoTitleLeftDiv = document.createElement('div');
         todoTitleLeftDiv.classList.add('todo-title')
         const todoDropdownArrow = new Image();
         todoDropdownArrow.src = rightArrowSmall;
         todoDropdownArrow.classList.add('todo-dropdown-arrow');
-        todoDropdownArrow.classList.add(`${todo.title}`);
+        todoDropdownArrow.classList.add(`${kebabCase(todo.title)}`);
         const todoTitleText = document.createElement('div');
         todoTitleText.textContent = todo.title;
         todoTitleText.classList.add('todo-title-text');
@@ -194,21 +191,21 @@ class Add {
         todoDeleteIcon.src = deleteIconSmall;
         todoDeleteIcon.classList.add('todo-delete');
         todoDeleteIcon.classList.add(`${projectIndex}delete`)
-        todoDeleteIcon.classList.add(`${todo.title}`);
+        todoDeleteIcon.classList.add(`${kebabCase(todo.title)}`);
 
         const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
-        todoDescription.classList.add(`sub${todo.title}`);
+        todoDescription.classList.add(`sub${kebabCase(todo.title)}`);
         todoDescription.classList.add('todo-sub');
         todoDescription.classList.add('hidden');
-        const todoDueDate =  document.createElement('div');
+        const todoDueDate = document.createElement('div');
         todoDueDate.textContent = todo.dueDate;
-        todoDueDate.classList.add(`sub${todo.title}`);
+        todoDueDate.classList.add(`sub${kebabCase(todo.title)}`);
         todoDueDate.classList.add('todo-sub');
         todoDueDate.classList.add('hidden');
-        const todoPriority =  document.createElement('div');
+        const todoPriority = document.createElement('div');
         todoPriority.textContent = todo.priority;
-        todoPriority.classList.add(`sub${todo.title}`);
+        todoPriority.classList.add(`sub${kebabCase(todo.title)}`);
         todoPriority.classList.add('todo-sub');
         todoPriority.classList.add('hidden');
 
@@ -233,16 +230,14 @@ class Add {
 
 class Remove {
     static removeProjectForm() {
-        if (modal.contains(projectForm))
-        {
+        if (modal.contains(projectForm)) {
             modal.removeChild(projectForm);
         }
         projectName.value = '';
     }
 
     static removeTodoForm() {
-        if (modal.contains(todoForm))
-        {
+        if (modal.contains(todoForm)) {
             modal.removeChild(todoForm);
         }
         const inputs = todoForm.childNodes;
@@ -253,14 +248,11 @@ class Remove {
 }
 
 const displayProjects = () => {
-    if(localStorage[0])
-    {
-        for(let i = 0; i < localStorage.length; ++i)
-        {
+    if (localStorage[0]) {
+        for (let i = 0; i < localStorage.length; ++i) {
             projects.push(JSON.parse(localStorage.getItem(i)));
         }
-        for(let i = 0; i < projects.length; ++i)
-        {
+        for (let i = 0; i < projects.length; ++i) {
             Add.addProject(projects[i]);
             projects[i].todos.forEach(todo => {
                 const projectDiv = document.querySelector(`.${kebabCase(projects[i].projectName)}`)
@@ -272,13 +264,14 @@ const displayProjects = () => {
             projectDropdownArrows.forEach(arrow => arrow.src = rightArrow);
         }
     }
-    else
-    {   
+    else {
         projects.push(project('default'))
         Add.addProject(projects[0]);
     }
 }
 
 
-export { Add, Remove, projectButton, addProjectButton, projectName, projectDropdown, 
-    todoButton, title, description, dueDate, priority, addTodoButton, displayProjects }
+export {
+    Add, Remove, projectButton, addProjectButton, projectName, projectDropdown,
+    todoButton, title, description, dueDate, priority, addTodoButton, displayProjects
+}
