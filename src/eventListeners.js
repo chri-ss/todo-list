@@ -172,5 +172,39 @@ const addTodoDeleteEventListener = () => {
     })
 }
 
+const AddProjectUpdateEventListener = () => {
+    const main = document.querySelector('.main');
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'project-update')
+        {
+            const projectIndex = parseInt(event.target.classList[1]);
+            const projectTitleDiv = (event.target.parentElement).parentElement;
+            const children = Array.from(projectTitleDiv.childNodes);
+
+            children.forEach(child => {
+                let grandChildren = Array.from(child.childNodes);
+                console.log(grandChildren);
+                grandChildren.forEach(grandChild => {
+                    if (grandChild.classList[1] === `text${projectIndex}`)
+                    {
+                        const newInput = document.createElement('input');
+                        child.replaceChild(newInput, grandChild)
+                        newInput.addEventListener('keyup', (e) => {
+                            if ('Enter' === e.key)
+                            {
+                                grandChild.textContent = newInput.value;
+                                projects[projectIndex].projectName = newInput.value;
+                                updateLocalStorage();
+                                child.replaceChild(grandChild, newInput);
+                            }
+                        })
+                    }
+                })
+            })
+        }
+    })
+}
+
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener}
+    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener,
+AddProjectUpdateEventListener}

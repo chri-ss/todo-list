@@ -89,12 +89,13 @@ class Add {
         projectDropdownArrow.classList.add('project-dropdown-arrow', `${projects.indexOf(project)}`);
         const projectTitleText = document.createElement('div');
         projectTitleText.textContent = project.projectName;
-        projectTitleText.classList.add('project-title-text');
+        projectTitleText.classList.add('project-title-text', `text${projects.indexOf(project)}`);
 
         const projectTitleRightDiv = document.createElement('div');
         projectTitleRightDiv.classList.add('project-title');
         const projectUpdateIcon = new Image();
         projectUpdateIcon.src = updateIcon;
+        projectUpdateIcon.classList.add('project-update', `${projects.indexOf(project)}update`);
         const projectDeleteIcon = new Image();
         projectDeleteIcon.src = deleteIcon;
         projectDeleteIcon.classList.add('project-delete', `${projects.indexOf(project)}delete`);
