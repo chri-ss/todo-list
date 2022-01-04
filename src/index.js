@@ -1,7 +1,8 @@
 import { addbackAddTodo, projects } from './project.js';
 import { Add, addProjectButton, displayProjects } from './displayController.js';
 import { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener, AddProjectUpdateEventListener} from './eventListeners.js';
+    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, 
+    addTodoDeleteEventListener, AddProjectUpdateEventListener, addTodoUpdateEventListener} from './eventListeners.js';
 import './style.css';
 import './reset.css';
 
@@ -18,6 +19,7 @@ addProjectToggleEventListener();
 addDeleteProjectEventListener();
 addTodoDeleteEventListener();
 AddProjectUpdateEventListener();
+addTodoUpdateEventListener();
 displayProjects();
 addbackAddTodo();
 console.log(projects);

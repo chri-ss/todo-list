@@ -4,6 +4,9 @@ html {
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     width: 100%;
 }
@@ -61,14 +64,12 @@ button {
     background-color: #E7834E;
     height: auto;
     width: auto;
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    
     font-size: 24px;
 }
 
-.project-form, .todo-form {
+.project-form, .todo-form, .todo-edit-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,6 +77,10 @@ button {
     padding: 1rem;
     gap: 0.6rem;
     width: 80%;
+}
+
+.todo-edit-form {
+    width: 40%;
 }
 
 .hidden {
@@ -147,7 +152,7 @@ button {
 }
 
 .project-dropdown-arrow:hover, .todo-dropdown-arrow:hover, .project-delete:hover, 
-.todo-delete:hover, .project-update:hover, button:hover {
+.todo-delete:hover, .project-update:hover, .todo-update:hover, button:hover {
     background-color: rgb(242, 255, 58);
     border-radius: 5px;
     transition: 0.2s ease-in;

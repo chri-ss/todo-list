@@ -10,8 +10,9 @@ import updateIconSmall from './images/1x/baseline_update_black_24dp.png'
 import deleteIconSmall from './images/1x/baseline_delete_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
+import todo from "./todo";
 
-
+const body = document.querySelector('body')
 const content = document.getElementById('content')
 const nav = document.createElement('div');
 const modal = document.createElement('div');
@@ -31,6 +32,9 @@ const priority = document.createElement('select');
 const low = document.createElement('option');
 const medium = document.createElement('option');
 const high = document.createElement('option');
+low.textContent = 'low'
+medium.textContent = 'medium';
+high.textContent = 'high';
 const addTodoButton = document.createElement('button');
 
 const projectLabel = document.createElement('label');
@@ -48,7 +52,7 @@ class Add {
     static addModal() {
         modal.classList.add('modal');
         modal.classList.add('hidden');
-        content.appendChild(modal);
+        body.appendChild(modal);
     }
 
     static addMain() {
@@ -133,9 +137,6 @@ class Add {
         dueDate.classList.add('due-date');
         dueDate.type = 'date';
         priority.classList.add('priority');
-        low.textContent = 'low'
-        medium.textContent = 'medium';
-        high.textContent = 'high';
         addTodoButton.classList.add('add-todo-button');
         addTodoButton.textContent = 'Add Todo';
 
@@ -193,8 +194,10 @@ class Add {
         const todoDropdownArrow = new Image();
         todoDropdownArrow.src = rightArrowSmall;
         todoDropdownArrow.classList.add('todo-dropdown-arrow', `${kebabCase(todo.title)}`);
+        const todoTitleTextContainer = document.createElement('div');
         const todoTitleText = document.createElement('div');
         todoTitleText.textContent = todo.title;
+        todoTitleTextContainer.appendChild(todoTitleText);
         todoTitleText.classList.add('todo-title-text');
 
         const todoTitleRightDiv = document.createElement('div');
@@ -202,21 +205,22 @@ class Add {
         const todoUpdateIcon = new Image();
         todoUpdateIcon.src = updateIconSmall;
         const todoDeleteIcon = new Image();
+        todoUpdateIcon.classList.add('todo-update', `${projectIndex}update`, `${projects[projectIndex].todos.indexOf(todo)}todo`);
         todoDeleteIcon.src = deleteIconSmall;
         todoDeleteIcon.classList.add('todo-delete', `${projectIndex}delete`, `${kebabCase(todo.title)}`);
 
         const todoDescription = document.createElement('div');
         todoDescription.textContent = todo.description;
-        todoDescription.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden');
+        todoDescription.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden', 'desc');
         const todoDueDate = document.createElement('div');
-        todoDueDate.textContent = todo.dueDate;
-        todoDueDate.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden');
+        todoDueDate.textContent = `Due: ${todo.dueDate}`;
+        todoDueDate.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden', 'due');
         const todoPriority = document.createElement('div');
-        todoPriority.textContent = todo.priority;
-        todoPriority.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden');
+        todoPriority.textContent = `Priority: ${todo.priority}`;
+        todoPriority.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden', 'prior');
 
         todoTitleLeftDiv.appendChild(todoDropdownArrow);
-        todoTitleLeftDiv.appendChild(todoTitleText);
+        todoTitleLeftDiv.appendChild(todoTitleTextContainer);
 
         todoTitleRightDiv.appendChild(todoUpdateIcon);
         todoTitleRightDiv.appendChild(todoDeleteIcon);
@@ -229,6 +233,33 @@ class Add {
         todoDiv.appendChild(todoDueDate);
         todoDiv.appendChild(todoPriority);
         projectDiv.appendChild(todoDiv);
+    }
+
+    static addTodoEditForm(div) {
+        div.style.display = 'flex';
+        div.style.justifyContent = 'center';
+        const todoEditForm = document.createElement('form');
+        todoEditForm.classList.add('todo-edit-form');
+        titleLabel.textContent = 'Title';
+        descriptionLabel.textContent = 'Description';
+        dueDateLabel.textContent = 'Due Date';
+        priorityLabel.textContent = 'Priority';
+        addTodoButton.textContent = 'Update';
+        title.classList.add('title');
+        description.classList.add('description');
+        dueDate.classList.add('due-date');
+        priority.classList.add('priority');
+        addTodoButton.classList.add('update');
+        const fields = [titleLabel, title, descriptionLabel, description, dueDateLabel, dueDate, priorityLabel, priority, addTodoButton];
+        const priorities = [low, medium, high];
+        priorities.forEach(prior => {
+            priority.appendChild(prior);
+        })
+        dueDate.type = 'date';
+        fields.forEach(field => {
+            todoEditForm.appendChild(field);
+        })
+        div.appendChild(todoEditForm);
     }
 }
 
@@ -251,6 +282,15 @@ class Remove {
             input.value = '';
         })
         modal.classList.add('hidden');
+    }
+
+    static removeTodoEditForm(div) {
+        const todoEditForm = document.querySelector('.todo-edit-form');
+        if(div.contains(todoEditForm))
+        {
+            div.removeChild(todoEditForm);
+        }
+        div.style.display = 'block';
     }
 }
 
@@ -279,6 +319,6 @@ const displayProjects = () => {
 
 
 export {
-    Add, Remove, projectButton, addProjectButton, projectName, projectDropdown,
-    todoButton, title, description, dueDate, priority, addTodoButton, displayProjects
+    Add, Remove, main, projectButton, addProjectButton, projectName, projectDropdown,
+    todoButton, title, description, dueDate, priority, addTodoButton, displayProjects,
 }
