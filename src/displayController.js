@@ -52,6 +52,13 @@ class Add {
     static addModal() {
         modal.classList.add('modal');
         modal.classList.add('hidden');
+        const xButtonDiv = document.createElement('div');
+        xButtonDiv.classList.add('x-button-div');
+        const xButton = document.createElement('button');
+        xButton.textContent = 'x'
+        xButton.classList.add('x-button');
+        xButtonDiv.appendChild(xButton);
+        modal.appendChild(xButtonDiv);
         body.appendChild(modal);
     }
 

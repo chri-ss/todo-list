@@ -275,6 +275,22 @@ const addTodoUpdateEventListener = () => {
     })
 }
 
+const deleteModalEventListener = () => {
+    const body = document.querySelector('body');
+    body.addEventListener('click', (e) => {
+        if(e.target.classList[0] === 'x-button')
+        {
+            const modal = document.querySelector('.modal');
+            modal.classList.add('hidden');
+            const inputs = Array.from(modal.querySelectorAll('input'));
+            inputs.forEach(input => {
+                input.value = '';
+            })
+            
+        }
+    })
+}
+
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
     addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener,
-AddProjectUpdateEventListener, addTodoUpdateEventListener}
+AddProjectUpdateEventListener, addTodoUpdateEventListener, deleteModalEventListener}
