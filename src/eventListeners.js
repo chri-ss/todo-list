@@ -1,4 +1,4 @@
-import { Add, Remove, projectButton, addProjectButton, projectName, todoButton, 
+import { Add, Remove, main, projectButton, addProjectButton, projectName, todoButton, 
 projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
@@ -63,7 +63,6 @@ const addTodoSubmitEventListener = () => {
 }
 
 const addTodoToggleEventListener = () => {
-    const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'todo-dropdown-arrow')
         {
@@ -89,7 +88,6 @@ const addTodoToggleEventListener = () => {
 }
 
 const addProjectToggleEventListener = () => {
-    const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'project-dropdown-arrow');
         {
@@ -115,7 +113,6 @@ const addProjectToggleEventListener = () => {
 }
 
 const addDeleteProjectEventListener = () => {
-    const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'project-delete')
         {
@@ -149,7 +146,6 @@ const addDeleteProjectEventListener = () => {
 }
 
 const addTodoDeleteEventListener = () => {
-    const main = document.querySelector('.main');
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'todo-delete')
         {
@@ -172,5 +168,129 @@ const addTodoDeleteEventListener = () => {
     })
 }
 
+const AddProjectUpdateEventListener = () => {
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'project-update')
+        {
+            const projectIndex = parseInt(event.target.classList[1]);
+            const projectTitleDiv = (event.target.parentElement).parentElement;
+            const children = Array.from(projectTitleDiv.childNodes);
+
+            children.forEach(child => {
+                let grandChildren = Array.from(child.childNodes);
+                grandChildren.forEach(grandChild => {
+                    if (grandChild.classList[1] === `text${projectIndex}`)
+                    {
+                        const newInput = document.createElement('input');
+                        child.replaceChild(newInput, grandChild)
+                        newInput.addEventListener('keyup', (e) => {
+                            if ('Enter' === e.key)
+                            {
+                                if(newInput.value === '')
+                                {
+                                    newInput.value = grandChild.textContent;
+                                }
+                                grandChild.textContent = newInput.value;
+                                projectTitleDiv.parentElement.classList.remove(projectTitleDiv.classList[1]);
+                                projectTitleDiv.parentElement.classList.add(newInput.value);
+                                projects[projectIndex].projectName = newInput.value;
+                                updateLocalStorage();
+                                child.replaceChild(grandChild, newInput);
+                            }
+                        })
+                    }
+                })
+            })
+        }
+    })
+}
+
+const addTodoUpdateEventListener = () => {
+    main.addEventListener('click', (e) => {
+        if(e.target.classList[0] === 'todo-update')
+        {
+            const projectIndex = parseInt(e.target.classList[1]);
+            const todoIndex = parseInt(e.target.classList[2]);
+            const todoToUpdate = projects[projectIndex].todos[todoIndex];
+            console.log(todoToUpdate);
+            const todoDiv = ((e.target.parentElement).parentElement).parentElement;
+            const children = Array.from(todoDiv.querySelectorAll('.todo-div *'));
+            console.log(todoDiv)
+            
+            children.forEach(child => {
+                child.classList.add('hidden');
+            })
+            
+            Add.addTodoEditForm(todoDiv);
+            const title = todoDiv.querySelector('.title');
+            const description = todoDiv.querySelector('.description');
+            const dueDate = todoDiv.querySelector('.due-date');
+            const priority = todoDiv.querySelector('.priority');
+
+            const updateButton = todoDiv.querySelector('.update');
+            updateButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                children.forEach(child => {
+                    if(child.classList.contains('todo-title-text'))
+                    {
+                        const titleParent = child.parentElement;
+                        const divToAdd = document.createElement('div');
+                        todoToUpdate.title = title.value;
+                        divToAdd.textContent = todoToUpdate.title;
+                        titleParent.replaceChild(divToAdd, child);
+                    }
+                    else if(child.classList.contains('desc'))
+                    {
+                        const divToAdd = document.createElement('div');
+                        todoToUpdate.description = description.value;
+                        divToAdd.textContent = todoToUpdate.description;
+                        divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'desc');
+                        todoDiv.replaceChild(divToAdd, child);
+
+                    }
+                    else if(child.classList.contains('due'))
+                    {
+                        const divToAdd = document.createElement('div');
+                        todoToUpdate.dueDate = dueDate.value;
+                        divToAdd.textContent = todoToUpdate.dueDate;
+                        divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'due');
+                        todoDiv.replaceChild(divToAdd, child);
+                    }
+                    else if(child.classList.contains('prior'))
+                    {
+                        const divToAdd = document.createElement('div');
+                        todoToUpdate.priority = priority.value;
+                        divToAdd.textContent = todoToUpdate.priority;
+                        divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'prior');
+                        todoDiv.replaceChild(divToAdd, child);
+                    }
+                    children.forEach(child => {
+                        child.classList.remove('hidden');
+                    })
+                    Remove.removeTodoEditForm(todoDiv);
+                })
+                updateLocalStorage();
+            })
+        }
+    })
+}
+
+const deleteModalEventListener = () => {
+    const body = document.querySelector('body');
+    body.addEventListener('click', (e) => {
+        if(e.target.classList[0] === 'x-button')
+        {
+            const modal = document.querySelector('.modal');
+            modal.classList.add('hidden');
+            const inputs = Array.from(modal.querySelectorAll('input'));
+            inputs.forEach(input => {
+                input.value = '';
+            })
+            
+        }
+    })
+}
+
 export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener}
+    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener,
+AddProjectUpdateEventListener, addTodoUpdateEventListener, deleteModalEventListener}
