@@ -9,14 +9,14 @@ import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 
-const addProjectEventListener = () => {
+const projectEventListener = () => {
     projectButton.addEventListener('click', () => {
         Remove.removeTodoForm();
         Add.addProjectForm();
     });
 }
 
-const addProjectSubmitEventListener = () => {
+const projectSubmitEventListener = () => {
     addProjectButton.addEventListener('click', (e) => {
         e.preventDefault();
         if (projectName.value === '')
@@ -38,14 +38,14 @@ const addProjectSubmitEventListener = () => {
     })
 }
 
-const addTodoEventListener = () => {
+const todoEventListener = () => {
     todoButton.addEventListener('click', (e) => {
         Remove.removeProjectForm();
         Add.addTodoForm();
     })
 }
 
-const addTodoSubmitEventListener = () => {
+const todoSubmitEventListener = () => {
     addTodoButton.addEventListener('click', (e) => {
         e.preventDefault()
         if(title.value === '' || description.value === '' || dueDate.value === '' || priority.value === '')
@@ -62,7 +62,7 @@ const addTodoSubmitEventListener = () => {
     })
 }
 
-const addTodoToggleEventListener = () => {
+const todoToggleEventListener = () => {
     main.addEventListener('click', (e) => {
         if(e.target.classList[0] === 'todo-dropdown-arrow')
         {
@@ -80,7 +80,7 @@ const addTodoToggleEventListener = () => {
     })
 }
 
-const addProjectToggleEventListener = () => {
+const projectToggleEventListener = () => {
     main.addEventListener('click', (e) => {
         if(e.target.classList[0] === 'project-dropdown-arrow');
         {
@@ -98,7 +98,7 @@ const addProjectToggleEventListener = () => {
     })
 }
 
-const addDeleteProjectEventListener = () => {
+const deleteProjectEventListener = () => {
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'project-delete')
         {
@@ -131,7 +131,7 @@ const addDeleteProjectEventListener = () => {
     })
 }
 
-const addTodoDeleteEventListener = () => {
+const todoDeleteEventListener = () => {
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'todo-delete')
         {
@@ -154,7 +154,7 @@ const addTodoDeleteEventListener = () => {
     })
 }
 
-const AddProjectUpdateEventListener = () => {
+const projectUpdateEventListener = () => {
     main.addEventListener('click', (event) => {
         if(event.target.classList[0] === 'project-update')
         {
@@ -191,7 +191,7 @@ const AddProjectUpdateEventListener = () => {
     })
 }
 
-const addTodoUpdateEventListener = () => {
+const todoUpdateEventListener = () => {
     main.addEventListener('click', (e) => {
         if(e.target.classList[0] === 'todo-update')
         {
@@ -277,6 +277,6 @@ const deleteModalEventListener = () => {
     })
 }
 
-export { addProjectEventListener, addProjectSubmitEventListener, addTodoEventListener, addTodoSubmitEventListener, 
-    addTodoToggleEventListener, addProjectToggleEventListener, addDeleteProjectEventListener, addTodoDeleteEventListener,
-AddProjectUpdateEventListener, addTodoUpdateEventListener, deleteModalEventListener}
+export { projectEventListener, projectSubmitEventListener, todoEventListener, todoSubmitEventListener, 
+    todoToggleEventListener, projectToggleEventListener, deleteProjectEventListener, todoDeleteEventListener,
+projectUpdateEventListener, todoUpdateEventListener, deleteModalEventListener}

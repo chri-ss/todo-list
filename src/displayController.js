@@ -10,7 +10,6 @@ import updateIconSmall from './images/1x/baseline_update_black_24dp.png'
 import deleteIconSmall from './images/1x/baseline_delete_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
-import todo from "./todo";
 
 const body = document.querySelector('body')
 const content = document.getElementById('content')
