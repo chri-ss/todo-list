@@ -1,4 +1,4 @@
-import { Add, Remove, main, projectButton, addProjectButton, projectName, todoButton, 
+import { Add, Remove, Toggle, main, projectButton, addProjectButton, projectName, todoButton, 
 projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
@@ -63,22 +63,15 @@ const addTodoSubmitEventListener = () => {
 }
 
 const addTodoToggleEventListener = () => {
-    main.addEventListener('click', (event) => {
-        if(event.target.classList[0] === 'todo-dropdown-arrow')
+    main.addEventListener('click', (e) => {
+        if(e.target.classList[0] === 'todo-dropdown-arrow')
         {
-            if(event.target.src === rightArrowSmall)
-            {
-                event.target.src = downArrowSmall;
-            }
-            else if (event.target.src === downArrowSmall)
-            {
-                event.target.src = rightArrowSmall;
-            }
-            const todoDiv = ((event.target.parentElement).parentElement).parentElement;
+            Toggle.toggleArrow(e.target);
+            const todoDiv = ((e.target.parentElement).parentElement).parentElement;
             console.log(todoDiv);
             const children = Array.from(todoDiv.childNodes);
             children.forEach(child => {
-                if(child.classList[0] === `sub${kebabCase(event.target.classList[1])}`)
+                if(child.classList[0] === `sub${kebabCase(e.target.classList[1])}`)
                 {
                     child.classList.toggle('hidden');
                 }
@@ -88,20 +81,13 @@ const addTodoToggleEventListener = () => {
 }
 
 const addProjectToggleEventListener = () => {
-    main.addEventListener('click', (event) => {
-        if(event.target.classList[0] === 'project-dropdown-arrow');
+    main.addEventListener('click', (e) => {
+        if(e.target.classList[0] === 'project-dropdown-arrow');
         {
-            if(event.target.src === rightArrow)
-            {
-                event.target.src = downArrow;
-            }
-            else if (event.target.src === downArrow)
-            {
-                event.target.src = rightArrow
-            }
-            const project = projects[event.target.classList[1]];
+            Toggle.toggleArrow(e.target);
+            const project = projects[e.target.classList[1]];
             console.log(project);
-            const children = Array.from(document.querySelectorAll(`.todo${event.target.classList[1]}`));
+            const children = Array.from(document.querySelectorAll(`.todo${e.target.classList[1]}`));
             children.forEach(child => {
                 if (child.classList.contains('todo-div'))
                 {

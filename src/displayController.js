@@ -301,6 +301,27 @@ class Remove {
     }
 }
 
+class Toggle {
+    static toggleArrow(arrow) {
+        if(arrow.src === rightArrow)
+        {
+            arrow.src = downArrow;
+        }
+        else if(arrow.src === downArrow)
+        {
+            arrow.src = rightArrow;
+        }
+        else if(arrow.src === rightArrowSmall)
+        {
+            arrow.src = downArrowSmall;
+        }
+        else if(arrow.src === downArrowSmall)
+        {
+            arrow.src = rightArrowSmall;
+        }
+    }
+}
+
 const displayProjects = () => {
     if (localStorage[0]) {
         for (let i = 0; i < localStorage.length; ++i) {
@@ -326,6 +347,6 @@ const displayProjects = () => {
 
 
 export {
-    Add, Remove, main, projectButton, addProjectButton, projectName, projectDropdown,
+    Add, Remove, Toggle, main, projectButton, addProjectButton, projectName, projectDropdown,
     todoButton, title, description, dueDate, priority, addTodoButton, displayProjects,
 }
