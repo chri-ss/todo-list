@@ -174,3 +174,14 @@ button {
     border-radius: 0;
     text-align: center;
 }
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    background-color: #be6652;
+    border-top: 2px solid #38555D;
+    min-height: 5%;
+    min-width: 100%;
+}

@@ -9,7 +9,7 @@ import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 
-const projectEventListener = () => {
+const addProjectEventListener = () => {
     projectButton.addEventListener('click', () => {
         Remove.removeTodoForm();
         Add.addProjectForm();
@@ -38,7 +38,7 @@ const projectSubmitEventListener = () => {
     })
 }
 
-const todoEventListener = () => {
+const addTodoEventListener = () => {
     todoButton.addEventListener('click', (e) => {
         Remove.removeProjectForm();
         Add.addTodoForm();
@@ -54,7 +54,7 @@ const todoSubmitEventListener = () => {
         }
         const newTodo = todo(title.value, description.value, dueDate.value, priority.value);
         const newProject = projects[projectDropdown.selectedIndex];
-        const projectDiv = document.querySelector(`.${kebabCase(newProject.projectName)}`)
+        const projectDiv = document.querySelector(`[data-project='${kebabCase(newProject.projectName)}']`)
         newProject.addTodo(newTodo);
         Add.addTodo(newTodo, projectDiv, projectDropdown.selectedIndex);
         Remove.removeTodoForm();
@@ -63,37 +63,21 @@ const todoSubmitEventListener = () => {
 }
 
 const todoToggleEventListener = () => {
-    main.addEventListener('click', (e) => {
-        if(e.target.classList[0] === 'todo-dropdown-arrow')
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'todo-dropdown-arrow')
         {
-            Toggle.toggleArrow(e.target);
-            const todoDiv = ((e.target.parentElement).parentElement).parentElement;
-            console.log(todoDiv);
-            const children = Array.from(todoDiv.childNodes);
-            children.forEach(child => {
-                if(child.classList[0] === `sub${kebabCase(e.target.classList[1])}`)
-                {
-                    child.classList.toggle('hidden');
-                }
-            })
+            Toggle.toggleSmallArrow(event.target);
+            Toggle.toggleTodoSubfields(event.target);
         }
     })
 }
 
 const projectToggleEventListener = () => {
-    main.addEventListener('click', (e) => {
-        if(e.target.classList[0] === 'project-dropdown-arrow');
+    main.addEventListener('click', (event) => {
+        if(event.target.classList[0] === 'project-dropdown-arrow');
         {
-            Toggle.toggleArrow(e.target);
-            const project = projects[e.target.classList[1]];
-            console.log(project);
-            const children = Array.from(document.querySelectorAll(`.todo${e.target.classList[1]}`));
-            children.forEach(child => {
-                if (child.classList.contains('todo-div'))
-                {
-                    child.classList.toggle('hidden');
-                }
-            })
+            Toggle.toggleBigArrow(event.target);
+            Toggle.toggleTodos(event.target);
         }
     })
 }
@@ -104,26 +88,18 @@ const deleteProjectEventListener = () => {
         {
             if(projects.length === 1)
             {
-                while(main.firstChild)
-                {
-                    main.removeChild(main.firstChild);
-                }
+                Remove.clearMain();
                 projects.shift();
-                console.log(projects);
                 updateLocalStorage();
             }
             else
             {
                 const projectIndex = parseInt(event.target.classList[1]);
-                const divToRemove = document.querySelector(`.${kebabCase(projects[projectIndex].projectName)}`);
-                main.removeChild(divToRemove);
+                Remove.removeProject(event.target, projectIndex);
                 projects.splice(projectIndex, 1);
 
                 //to make last div removable
-                const lastDiv = main.lastChild;
-                const lastDeleteButton = lastDiv.querySelector('.project-delete');
-                lastDeleteButton.classList.remove(lastDeleteButton.classList[1]);
-                lastDeleteButton.classList.add(`${projects.length - 1}delete`);
+                Remove.removeLastProject();
         
                 updateLocalStorage();
             }
@@ -137,16 +113,14 @@ const todoDeleteEventListener = () => {
         {
             const projectIndex = parseInt(event.target.classList[1]);
             const projectToRemoveFrom = projects[projectIndex];
-            const projectTodosToRemoveFrom = projectToRemoveFrom.todos;
-            const divToRemoveFrom = document.querySelector(`.${projectToRemoveFrom.projectName}`)
+            const projectTodosToRemoveFrom = projectToRemoveFrom.todos
 
             projectTodosToRemoveFrom.forEach(todo => {
                 if(todo.title === event.target.classList[2])
                 {
                     const todoIndex = (projectTodosToRemoveFrom.indexOf(todo));
                     projectTodosToRemoveFrom.splice(todoIndex, 1);
-                    const divToRemove = document.querySelector(`.${todo.title}`);
-                    divToRemoveFrom.removeChild(divToRemove);
+                    Remove.removeTodo(projectToRemoveFrom, todo);
                     updateLocalStorage();
                 }
             })
@@ -159,33 +133,30 @@ const projectUpdateEventListener = () => {
         if(event.target.classList[0] === 'project-update')
         {
             const projectIndex = parseInt(event.target.classList[1]);
-            const projectTitleDiv = (event.target.parentElement).parentElement;
-            const children = Array.from(projectTitleDiv.childNodes);
-
+            const projectDiv = document.querySelector(`[data-project='${projects[projectIndex].projectName}']`)
+            const children = Array.from(document.querySelectorAll(`[data-project='${projects[projectIndex].projectName}'] *`));
+            console.log(projectDiv);
             children.forEach(child => {
-                let grandChildren = Array.from(child.childNodes);
-                grandChildren.forEach(grandChild => {
-                    if (grandChild.classList[1] === `text${projectIndex}`)
+                if (child.classList[1] === `text${projectIndex}`)
+                {
+                    const container = child.parentElement;
+                    const newInput = document.createElement('input');
+                    container.replaceChild(newInput, child)
+                    newInput.addEventListener('keyup', (e) => {
+                    if ('Enter' === e.key)
                     {
-                        const newInput = document.createElement('input');
-                        child.replaceChild(newInput, grandChild)
-                        newInput.addEventListener('keyup', (e) => {
-                            if ('Enter' === e.key)
-                            {
-                                if(newInput.value === '')
-                                {
-                                    newInput.value = grandChild.textContent;
-                                }
-                                grandChild.textContent = newInput.value;
-                                projectTitleDiv.parentElement.classList.remove(projectTitleDiv.classList[1]);
-                                projectTitleDiv.parentElement.classList.add(newInput.value);
-                                projects[projectIndex].projectName = newInput.value;
-                                updateLocalStorage();
-                                child.replaceChild(grandChild, newInput);
-                            }
-                        })
+                        if(newInput.value === '')
+                        {
+                            newInput.value = child.textContent;
+                        }
+                        child.textContent = newInput.value;
+                        projectDiv.setAttribute('data-project', `${kebabCase(newInput.value)}`);
+                        container.replaceChild(child, newInput);
+                        projects[projectIndex].projectName = newInput.value;
+                        updateLocalStorage();
                     }
-                })
+                    })
+                }
             })
         }
     })
@@ -198,10 +169,9 @@ const todoUpdateEventListener = () => {
             const projectIndex = parseInt(e.target.classList[1]);
             const todoIndex = parseInt(e.target.classList[2]);
             const todoToUpdate = projects[projectIndex].todos[todoIndex];
-            console.log(todoToUpdate);
+
             const todoDiv = ((e.target.parentElement).parentElement).parentElement;
             const children = Array.from(todoDiv.querySelectorAll('.todo-div *'));
-            console.log(todoDiv)
             
             children.forEach(child => {
                 child.classList.add('hidden');
@@ -221,6 +191,10 @@ const todoUpdateEventListener = () => {
                     {
                         const titleParent = child.parentElement;
                         const divToAdd = document.createElement('div');
+                        if(title.value === '')
+                        {
+                            return;
+                        }
                         todoToUpdate.title = title.value;
                         divToAdd.textContent = todoToUpdate.title;
                         titleParent.replaceChild(divToAdd, child);
@@ -228,6 +202,10 @@ const todoUpdateEventListener = () => {
                     else if(child.classList.contains('desc'))
                     {
                         const divToAdd = document.createElement('div');
+                        if(description.value === '')
+                        {
+                            return;
+                        }
                         todoToUpdate.description = description.value;
                         divToAdd.textContent = todoToUpdate.description;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'desc');
@@ -237,6 +215,10 @@ const todoUpdateEventListener = () => {
                     else if(child.classList.contains('due'))
                     {
                         const divToAdd = document.createElement('div');
+                        if(dueDate.value === '')
+                        {
+                            return;
+                        }
                         todoToUpdate.dueDate = dueDate.value;
                         divToAdd.textContent = todoToUpdate.dueDate;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'due');
@@ -245,16 +227,21 @@ const todoUpdateEventListener = () => {
                     else if(child.classList.contains('prior'))
                     {
                         const divToAdd = document.createElement('div');
+                        if(priority.value === '')
+                        {
+                            return;
+                        }
                         todoToUpdate.priority = priority.value;
                         divToAdd.textContent = todoToUpdate.priority;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'prior');
                         todoDiv.replaceChild(divToAdd, child);
                     }
-                    children.forEach(child => {
-                        child.classList.remove('hidden');
-                    })
+                    Add.revealHiddenTodos(children);
+                    const todoDropdownArrow = todoDiv.querySelector('.todo-dropdown-arrow');
+                    todoDropdownArrow.src = downArrowSmall;
                     Remove.removeTodoEditForm(todoDiv);
                 })
+                todoDiv.style.display
                 updateLocalStorage();
             })
         }
@@ -277,6 +264,6 @@ const deleteModalEventListener = () => {
     })
 }
 
-export { projectEventListener, projectSubmitEventListener, todoEventListener, todoSubmitEventListener, 
+export { addProjectEventListener, projectSubmitEventListener, addTodoEventListener, todoSubmitEventListener, 
     todoToggleEventListener, projectToggleEventListener, deleteProjectEventListener, todoDeleteEventListener,
 projectUpdateEventListener, todoUpdateEventListener, deleteModalEventListener}

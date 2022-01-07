@@ -1,6 +1,6 @@
 import { addbackAddTodo, projects } from './project.js';
 import { Add, displayProjects } from './displayController.js';
-import { projectEventListener, projectSubmitEventListener, todoEventListener, todoSubmitEventListener, 
+import { addProjectEventListener, projectSubmitEventListener, addTodoEventListener, todoSubmitEventListener, 
     todoToggleEventListener, projectToggleEventListener, deleteProjectEventListener, 
     todoDeleteEventListener, projectUpdateEventListener, todoUpdateEventListener, deleteModalEventListener} from './eventListeners.js';
 import './style.css';
@@ -10,12 +10,13 @@ Add.addNav();
 Add.addNavButtons();
 Add.addModal();
 Add.addMain();
-projectEventListener();
-todoEventListener();
+Add.addFooter();
+addProjectEventListener();
+addTodoEventListener();
 projectSubmitEventListener();
 todoSubmitEventListener();
-todoToggleEventListener();
 projectToggleEventListener();
+todoToggleEventListener();
 deleteProjectEventListener();
 todoDeleteEventListener();
 projectUpdateEventListener();

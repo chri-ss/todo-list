@@ -8,8 +8,8 @@ import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
 
 import updateIconSmall from './images/1x/baseline_update_black_24dp.png'
 import deleteIconSmall from './images/1x/baseline_delete_black_24dp.png'
-import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
+import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 
 const body = document.querySelector('body')
 const content = document.getElementById('content')
@@ -75,6 +75,13 @@ class Add {
         nav.appendChild(todoButton);
     }
 
+    static addFooter() {
+        const footer = document.createElement('div');
+        footer.classList.add('footer');
+        footer.textContent="I am a footer";
+        content.appendChild(footer);
+    }
+
     static addProjectForm() {
         projectForm.classList.add('project-form');
         projectName.classList.add('project-name');
@@ -88,7 +95,8 @@ class Add {
 
     static addProject(project) {
         const projectDiv = document.createElement('div');
-        projectDiv.classList.add('project-div', `${kebabCase(project.projectName)}`);
+        projectDiv.classList.add('project-div');
+        projectDiv.setAttribute('data-project', `${kebabCase(project.projectName)}`);
         const projectTitle = document.createElement('div');
         projectTitle.classList.add('project-title');
 
@@ -190,7 +198,8 @@ class Add {
         Add.revealHiddenTodos(Array.from(projectDiv.childNodes));
 
         const todoDiv = document.createElement('div');
-        todoDiv.classList.add('todo-div', `todo${projectIndex}`, `${kebabCase(todo.title)}`);
+        todoDiv.classList.add('todo-div', `todo${projectIndex}`);
+        todoDiv.setAttribute('data-todo', `${kebabCase(todo.title)}`)
 
         const todoTitle = document.createElement('div');
         todoTitle.classList.add('todo-title');
@@ -296,28 +305,78 @@ class Remove {
         {
             div.removeChild(todoEditForm);
         }
-        div.style.display = 'block';
+        div.style.display = null;
+    }
+
+    static removeProject(deleteButton, projectIndex) {
+        const divToRemove = document.querySelector(`[data-project='${kebabCase(projects[projectIndex].projectName)}']`);
+        main.removeChild(divToRemove);
+    }
+
+    static removeLastProject() {
+        const lastDiv = main.lastChild;
+        const lastDeleteButton = lastDiv.querySelector('.project-delete');
+        lastDeleteButton.classList.remove(lastDeleteButton.classList[1]);
+        lastDeleteButton.classList.add(`${projects.length - 1}delete`);
+    }
+
+    static removeTodo(projectToRemoveFrom, todo) {
+        const divToRemoveFrom = document.querySelector(`[data-project='${kebabCase(projectToRemoveFrom.projectName)}']`)
+        const divToRemove = document.querySelector(`[data-todo='${kebabCase(todo.title)}']`);
+        divToRemoveFrom.removeChild(divToRemove);
+    }
+
+    static clearMain() {
+        while(main.firstChild)
+        {
+            main.removeChild(main.firstChild);
+        }
     }
 }
 
 class Toggle {
-    static toggleArrow(arrow) {
+    static toggleBigArrow(arrow) {
         if(arrow.src === rightArrow)
         {
             arrow.src = downArrow;
         }
-        else if(arrow.src === downArrow)
+        else if (arrow.src === downArrow)
         {
-            arrow.src = rightArrow;
+            arrow.src = rightArrow
         }
-        else if(arrow.src === rightArrowSmall)
+    }
+
+    static toggleSmallArrow(arrow) {
+        if(arrow.src === rightArrowSmall)
         {
             arrow.src = downArrowSmall;
         }
-        else if(arrow.src === downArrowSmall)
+        else if (arrow.src === downArrowSmall)
         {
             arrow.src = rightArrowSmall;
-        }
+        } 
+    }
+
+    static toggleTodos(dropdownArrow) {
+        const children = Array.from(document.querySelectorAll(`.todo${dropdownArrow.classList[1]}`));
+            children.forEach(child => {
+                if (child.classList.contains('todo-div'))
+                {
+                    child.classList.toggle('hidden');
+                }
+            })
+            console.log(children)
+    }
+
+    static toggleTodoSubfields(dropdownArrow) {
+        const todoDiv = ((dropdownArrow.parentElement).parentElement).parentElement;
+        const children = Array.from(todoDiv.childNodes);
+        children.forEach(child => {
+            if(child.classList[0] === `sub${kebabCase(dropdownArrow.classList[1])}`)
+            {
+                child.classList.toggle('hidden');
+            }
+        })
     }
 }
 
@@ -329,7 +388,7 @@ const displayProjects = () => {
         for (let i = 0; i < projects.length; ++i) {
             Add.addProject(projects[i]);
             projects[i].todos.forEach(todo => {
-                const projectDiv = document.querySelector(`.${kebabCase(projects[i].projectName)}`)
+                const projectDiv = document.querySelector(`[data-project='${kebabCase(projects[i].projectName)}']`)
                 Add.addTodo(todo, projectDiv, i);
             })
             const children = Array.from(document.querySelectorAll(`.todo${i}`))
