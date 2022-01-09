@@ -1,12 +1,11 @@
+import { format } from 'date-fns';
+
 import { Add, Remove, Toggle, main, projectButton, addProjectButton, projectName, todoButton, 
 projectDropdown, title, description, dueDate, priority, addTodoButton } from "./displayController";
 import { project, projects } from './project.js';
 import todo from "./todo";
 import { kebabCase, updateLocalStorage } from "./utils";
 
-import rightArrow from './images/2x/baseline_arrow_right_black_24dp.png'
-import downArrow from './images/2x/baseline_arrow_drop_down_black_24dp.png'
-import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 
 const addProjectEventListener = () => {
@@ -237,7 +236,8 @@ const todoUpdateEventListener = () => {
                         {
                             todoToUpdate.dueDate = dueDate.value;
                         }
-                        divToAdd.textContent = todoToUpdate.dueDate;
+                        const realDate = format(new Date(todoToUpdate.dueDate), 'MM/dd/yyyy');
+                        divToAdd.textContent = `Due: ${realDate}`;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'due');
                         todoDiv.replaceChild(divToAdd, child);
                     }

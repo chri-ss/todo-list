@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { project, projects } from "./project";
 import { kebabCase } from "./utils";
 
@@ -252,7 +254,8 @@ class Add {
         todoDescription.textContent = todo.description;
         todoDescription.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden', 'desc');
         const todoDueDate = document.createElement('div');
-        todoDueDate.textContent = `Due: ${todo.dueDate}`;
+        const realDate = format(new Date(todo.dueDate), 'MM/dd/yyyy');
+        todoDueDate.textContent = `Due: ${realDate/*todo.dueDate*/}`;
         todoDueDate.classList.add(`sub${kebabCase(todo.title)}`, 'todo-sub', 'hidden', 'due');
         const todoPriority = document.createElement('div');
         todoPriority.textContent = `Priority: ${todo.priority}`;
