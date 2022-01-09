@@ -173,7 +173,9 @@ const todoUpdateEventListener = () => {
             const todoToUpdate = projects[projectIndex].todos[todoIndex];
 
             const todoDiv = ((e.target.parentElement).parentElement).parentElement;
+            const deleteButton = todoDiv.querySelector('.todo-delete');
             const children = Array.from(todoDiv.querySelectorAll('.todo-div *'));
+            console.log(children)
             
             children.forEach(child => {
                 child.classList.add('hidden');
@@ -195,10 +197,17 @@ const todoUpdateEventListener = () => {
                         const divToAdd = document.createElement('div');
                         if(title.value === '')
                         {
-                            return;
+                            todoToUpdate.title = todoToUpdate.title;
                         }
-                        todoToUpdate.title = title.value;
+                        else
+                        {
+                            todoToUpdate.title = title.value;
+                        }
                         divToAdd.textContent = todoToUpdate.title;
+                        divToAdd.classList.add('todo-title-text');
+                        todoDiv.setAttribute('data-todo', `${todoToUpdate.title}`);
+                        deleteButton.classList.remove(deleteButton.classList[2]);
+                        deleteButton.classList.add(todoToUpdate.title);
                         titleParent.replaceChild(divToAdd, child);
                     }
                     else if(child.classList.contains('desc'))
@@ -206,9 +215,12 @@ const todoUpdateEventListener = () => {
                         const divToAdd = document.createElement('div');
                         if(description.value === '')
                         {
-                            return;
+                            todoToUpdate.description = todoToUpdate.description;
                         }
-                        todoToUpdate.description = description.value;
+                        else
+                        {
+                            todoToUpdate.description = description.value;
+                        }
                         divToAdd.textContent = todoToUpdate.description;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'desc');
                         todoDiv.replaceChild(divToAdd, child);
@@ -219,9 +231,12 @@ const todoUpdateEventListener = () => {
                         const divToAdd = document.createElement('div');
                         if(dueDate.value === '')
                         {
-                            return;
+                            todoToUpdate.dueDate = todoToUpdate.dueDate;
                         }
-                        todoToUpdate.dueDate = dueDate.value;
+                        else
+                        {
+                            todoToUpdate.dueDate = dueDate.value;
+                        }
                         divToAdd.textContent = todoToUpdate.dueDate;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'due');
                         todoDiv.replaceChild(divToAdd, child);
@@ -231,9 +246,12 @@ const todoUpdateEventListener = () => {
                         const divToAdd = document.createElement('div');
                         if(priority.value === '')
                         {
-                            return;
+                            todoToUpdate.priority = todoToUpdate.priority;
                         }
-                        todoToUpdate.priority = priority.value;
+                        else
+                        {
+                            todoToUpdate.priority = priority.value;
+                        }
                         divToAdd.textContent = todoToUpdate.priority;
                         divToAdd.classList.add(`sub${todoToUpdate.title}`, 'todo-sub', 'prior');
                         todoDiv.replaceChild(divToAdd, child);

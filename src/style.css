@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Graduate';
+    src: url('./fonts/Graduate/Graduate-Regular.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal; 
+  }
+
+  @font-face {
+    font-family: 'Indie-Flower';
+    src: url('./fonts/IndieFlower/IndieFlower-Regular.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal; 
+  }
+  
+
 html {
     height: 100%;
     width: 100%;
@@ -32,12 +47,15 @@ body {
 
 .main {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
     background-color: #c9dbe4;
     min-width: 100%;
     font-size: 24px;
     z-index: 0;
+    font-family: 'Indie-Flower';
 }
 
 button {
@@ -46,6 +64,7 @@ button {
     border-radius: 10px;
     border: none;
     background-color: #ECC3A9;
+    border: 1px solid #38555D;
     overflow-wrap: anywhere;
 }
 
@@ -53,7 +72,7 @@ button {
     height: 50%;
     width: auto;
     font-size: 24px;
-    border: 1px solid #38555D;
+    font-family: 'Graduate';
 }
 
 .modal {
@@ -69,6 +88,12 @@ button {
     position: absolute;
     font-size: 24px;
     z-index: 11;
+    font-family: 'Graduate';
+}
+
+.modal-project-title {
+    margin: 0.5rem;
+    text-align: center;
 }
 
 .project-form, .todo-form, .todo-edit-form {
@@ -82,7 +107,7 @@ button {
 }
 
 .todo-edit-form {
-    width: 40%;
+    width: 30%;
 }
 
 .hidden {
@@ -151,6 +176,7 @@ button {
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
+    margin: 0.2rem;
 }
 
 .project-dropdown-arrow:hover, .todo-dropdown-arrow:hover, .project-delete:hover, 
@@ -187,6 +213,8 @@ button {
     border-top: 2px solid #38555D;
     min-height: 8%;
     min-width: 100%;
+    font-family: 'Graduate';
+    font-size: 24px;
 }
 
 .overlay {
@@ -196,4 +224,16 @@ button {
     z-index: 11;
     position: absolute;
     opacity: 0.2;
+}
+
+.main-project-title {
+    font-size: 32px;
+    margin: 1rem;
+    text-decoration: underline;
+}
+
+input {
+    outline: none;
+    border: 1px solid #38555D;
+    border-radius: 10px;
 }

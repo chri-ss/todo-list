@@ -20,6 +20,7 @@ const modal = document.createElement('div');
 const main = document.createElement('div');
 const projectButton = document.createElement('button');
 const todoButton = document.createElement('button');
+const projectTitle = document.createElement('label');
 const projectName = document.createElement('input');
 const projectForm = document.createElement('form');
 const todoForm = document.createElement('form');
@@ -66,6 +67,10 @@ class Add {
     static addMain() {
         main.classList.add('main');
         content.appendChild(main);
+        const projectTitle = document.createElement('div');
+        projectTitle.classList.add('main-project-title');
+        projectTitle.textContent = 'Projects';
+        main.appendChild(projectTitle);
     }
 
     static addNavButtons() {
@@ -93,8 +98,11 @@ class Add {
     static addProjectForm() {
         projectForm.classList.add('project-form');
         projectName.classList.add('project-name');
+        projectTitle.classList.add('modal-project-title');
+        projectTitle.textContent = 'New Project';
         addProjectButton.classList.add('add-project-button');
         addProjectButton.textContent = 'Add Project';
+        projectForm.appendChild(projectTitle);
         projectForm.appendChild(projectName);
         projectForm.appendChild(addProjectButton);
         modal.appendChild(projectForm);
