@@ -11,6 +11,8 @@ import deleteIconSmall from './images/1x/baseline_delete_black_24dp.png'
 import downArrowSmall from './images/1x/baseline_arrow_drop_down_black_24dp.png'
 import rightArrowSmall from './images/1x/baseline_arrow_right_black_24dp.png'
 
+import githubLogo from './images/GitHub-Mark/PNG/GitHub-Mark-32px.png'
+
 const body = document.querySelector('body')
 const content = document.getElementById('content')
 const nav = document.createElement('div');
@@ -78,7 +80,13 @@ class Add {
     static addFooter() {
         const footer = document.createElement('div');
         footer.classList.add('footer');
-        footer.textContent="I am a footer";
+        footer.textContent="© Chri-ss 2022";
+        const github = document.createElement('a');
+        const githubImage = new Image();
+        githubImage.src = githubLogo;
+        github.appendChild(githubImage);
+        github.href = 'https://github.com/chri-ss/'
+        footer.appendChild(github);
         content.appendChild(footer);
     }
 
@@ -90,7 +98,14 @@ class Add {
         projectForm.appendChild(projectName);
         projectForm.appendChild(addProjectButton);
         modal.appendChild(projectForm);
+        Add.addOverlay();
         modal.classList.remove('hidden');
+    }
+
+    static addOverlay() {
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        content.appendChild(overlay);
     }
 
     static addProject(project) {
@@ -176,6 +191,7 @@ class Add {
         todoForm.appendChild(priority);
         todoForm.appendChild(addTodoButton);
         modal.appendChild(todoForm);
+        Add.addOverlay();
         modal.classList.remove('hidden');
     }
 
@@ -331,6 +347,12 @@ class Remove {
         {
             main.removeChild(main.firstChild);
         }
+    }
+
+    static removeOverlay() {
+        const overlay = document.querySelector('.overlay');
+        console.log(overlay);
+        content.removeChild(overlay);
     }
 }
 

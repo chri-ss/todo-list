@@ -34,6 +34,7 @@ const projectSubmitEventListener = () => {
         projects.push(newProject);
         updateLocalStorage();
         Add.addProject(newProject);
+        Remove.removeOverlay();
         Remove.removeProjectForm();
     })
 }
@@ -58,6 +59,7 @@ const todoSubmitEventListener = () => {
         newProject.addTodo(newTodo);
         Add.addTodo(newTodo, projectDiv, projectDropdown.selectedIndex);
         Remove.removeTodoForm();
+        Remove.removeOverlay();
         updateLocalStorage();
     })
 }
@@ -259,7 +261,7 @@ const deleteModalEventListener = () => {
             inputs.forEach(input => {
                 input.value = '';
             })
-            
+            Remove.removeOverlay();
         }
     })
 }

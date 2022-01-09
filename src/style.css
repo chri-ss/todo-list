@@ -37,6 +37,7 @@ body {
     background-color: #c9dbe4;
     min-width: 100%;
     font-size: 24px;
+    z-index: 0;
 }
 
 button {
@@ -52,6 +53,7 @@ button {
     height: 50%;
     width: auto;
     font-size: 24px;
+    border: 1px solid #38555D;
 }
 
 .modal {
@@ -65,8 +67,8 @@ button {
     height: auto;
     width: auto;
     position: absolute;
-    
     font-size: 24px;
+    z-index: 11;
 }
 
 .project-form, .todo-form, .todo-edit-form {
@@ -179,9 +181,19 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
     margin-top: auto;
     background-color: #be6652;
     border-top: 2px solid #38555D;
-    min-height: 5%;
+    min-height: 8%;
     min-width: 100%;
+}
+
+.overlay {
+    min-height: 100%;
+    min-width: 100%;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 11;
+    position: absolute;
+    opacity: 0.2;
 }
